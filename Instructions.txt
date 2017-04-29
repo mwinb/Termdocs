@@ -8,21 +8,20 @@ Terminal Docs Instructions
 Terminal Docs created by Michael Winberry
 ----------------------------------------------------------
 Open Terminal:
-	Type: sudo cp "path to termdocs" /usr/bin/
+	Type: sudo cp "path to termdocs” /usr/bin/
 	hit enter: Enter Your Password
 	hit enter:
-	Type: sudo chmod +x /usr/bin/TerminalDocs
+	Type: sudo chmod +x /usr/bin/termdocs
 Open Terminal:
 	Type: termdocs "Path" 
-    -To open Specified Path or create new File
-	hit enter: The program should now be running.
-	hit enter: Choose this file
-	Type: -h for help menu 
+    -To open Specified Path or create new File with 
+	entered name and extension
 ----------------------------------------------------------
-You can also create a dash or desktop short cut using
-native linux application (Alacarte for Ubuntu)
+You can also install TerminalDocs.app to gain
+simplified file management without passing Terminal paths
 ----------------------------------------------------------
 Use this document to test.
 
 -Created by Michael Winberry
 -mwinb.github.io
+-mwinberry0101@gmail.com
