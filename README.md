@@ -6,7 +6,6 @@ Terminal Docs offers a file explorer and is recommended for casual users.
 
 Terminal Docs Has all of the features of Termdocs except  for Mac users. Due to the structure of the “.app”. 
 
-If you would like the source code shoot me an email. 
 
 Terminal Docs is a line by line text-editor,text-reader,and general purpose workstation. It allows for active insertion, replacement, deletion, and running Terminal/Windows cmd/shell commands for compiling and testing while using. Terminal Docs was written using Python 2.7 and compiled for Mac with py2app, linux and Windows with pyinstaller. In order to pass terminal paths to the Mac version, download termdocs-Mac, extract and follow instructions to install. Termdocs was compiled for all platforms using pyinstaller. 
 
