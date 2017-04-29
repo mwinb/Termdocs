@@ -37,8 +37,6 @@ def main():
         save(swapPath,lines)
         position = 0
 
-        
-            
     saveState = writer(swapPath,path,lines,0,position)
 
     swapPath = saveState[1]
@@ -494,13 +492,15 @@ def deleteSwap(path):
 
 def getDirectory():
     try:
-        path = raw_input("Enter Path: ")
-        nfile = "/" + str(raw_input("Enter File Name w/ Extension: "))
-        nPath = str(path) + nfile
-        if(path == "-q"):
+        print("Enter Path to Item You Wish to Open or Create")
+        print("*Including Extension ie '.txt'")
+        path = raw_input("Enter Full Path or (n): ")
+        if(path == "n"):
             raise SystemExit
-        elif( os.path.isdir(path) ):
-            return nPath
+        elif(os.path.isfile(path)):
+            return path
+        elif(os.path.isdir(path) == False):
+		return path
         else:
             raise Exception
     except Exception:
