@@ -377,7 +377,7 @@ def executeCommand(swapPath,path,lines,position,inp,copy,undoStack,redoStack):
         except Exception:
             print "----Invalid Entry----"
             raw_input("Continue? (Hit Enter) ")
-            return [0,swapPath,path,lines,position-20,position,copy]
+            return [0,swapPath,path,lines,position-20,position,copy,undoStack,redoStack]
     
     elif(str(inp)== "-dSelect"):
         try:
