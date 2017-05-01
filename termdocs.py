@@ -152,9 +152,6 @@ def executeCommand(swapPath,path,lines,position,inp,copy,undoStack,redoStack):
         print "-------------------------------------------"
         print "-| -exp     |Exports Current File to New  -"
         print "-------------------------------------------"
-        print "-| -oe      |Opens New Program in Default -"
-        print "-|          |Environment                  -"
-        print "-------------------------------------------"
         print "-| -end     |Jump to End                  -"
         print "-------------------------------------------"
         print "-| -begin   |Jump to Beginning            -"
@@ -445,10 +442,6 @@ def executeCommand(swapPath,path,lines,position,inp,copy,undoStack,redoStack):
         else:
             return [0,swapPath,path,lines,0,position,copy,undoStack,redoStack]
     
-    elif(str(inp) == "-oe"):
-        path2 = openPath()
-        programOpen(path2)
-        return [0,swapPath,path,lines,position-20,position,copy,undoStack,redoStack]
     
     elif(str(inp) == "-run"):
         killSwitch = 0
