@@ -12,7 +12,7 @@ Termdocs maintains most of the features of Terminal Docs except "-oe" command an
 
 About Terminal Docs and Terminal Docs Lite:
  
-    Terminal Docs is a line by line text-editor,text-reader,and general purpose workstation. It allows for active insertion, replacement, deletion, and running Terminal/Windows cmd/shell commands for compiling and testing while using. Terminal Docs was written using Python 2.7 and compiled for Mac with py2app, linux and Windows with pyinstaller. In order to pass terminal paths to the Mac version, download termdocs-Mac, extract and follow instructions to install. Termdocs was compiled for all platforms using pyinstaller.
+Terminal Docs is a line by line text-editor,text-reader,and general purpose workstation. It allows for active insertion, replacement, deletion, and running Terminal/Windows cmd/shell commands for compiling and testing while using. Terminal Docs was written using Python 2.7 and compiled for Mac with py2app, linux and Windows with pyinstaller. In order to pass terminal paths to the Mac version, download termdocs-Mac, extract and follow instructions to install. Termdocs was compiled for all platforms using pyinstaller.
 
 Example Commands:
 
