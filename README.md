@@ -1,4 +1,4 @@
-# termdocs
+# Terminal Docs Lite ie termdocs
 
 Terminal Docs Lite (ie termdocs for quick terminal calling)
  
