@@ -14,13 +14,15 @@ About Terminal Docs and Terminal Docs Lite:
  
 Terminal Docs is a line by line text-editor,text-reader,and general purpose workstation. It allows for active insertion, replacement, deletion, and running Terminal/Windows cmd/shell commands for compiling and testing while using. Terminal Docs was written using Python 2.7 and compiled for Mac with py2app, linux and Windows with pyinstaller. In order to pass terminal paths to the Mac version, download termdocs-Mac, extract and follow instructions to install. Termdocs was compiled for all platforms using pyinstaller.
 
-Example Commands:
+**Example Commands:**
 
 Enter -h to view all commands. 
 
 Enter -o to open into default program and move back and forth between full ide and TerminalDocs for a more complete user experience. 
 
 Enter -run to run Terminal Commands
+
+**Typing text and entering it on the current line does not replace the text previously on this line, it simply inserts new text to current line and pushes old line down. In order to replace a line of text use one of the replace commands: -rcl (replaces current line), -rep (prompts for line # to replace), -rs (prompts for starting line # of begining and end of section to replace line by line).**
  
 -created by Michael Winberry
  
@@ -28,10 +30,9 @@ Enter -run to run Terminal Commands
  
 -mwinberry0101@gmail.com
 
-To use termdocs without the Terminal Double click on desktop icon. 
 
-Example of what to enter for path if using outside of command prompt or Unix/linux terminal
+**Example of what to enter for path if using outside of command prompt or Unix/linux terminal**
  
-Windows:  termdocs.exe \users\yourusername\desktop\Instructions.txt
+**Windows:  termdocs.exe \users\yourusername\desktop\Instructions.txt**
  
-Mac/Linux:  termdocs ~/Desktop/Instructions.txt
+**Mac/Linux:  termdocs ~/Desktop/Instructions.txt**
