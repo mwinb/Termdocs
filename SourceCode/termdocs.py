@@ -21,6 +21,7 @@ def main():
 
     #checks if path is an existing file
     #Uses path as document. Fills array and begins writer function
+ 
     if(os.path.isfile(checkPath)):
         path = str(os.path.abspath(checkPath))
         swapPath = path + "-swap"
