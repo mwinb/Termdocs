@@ -27,6 +27,8 @@ def main():
         lines = fillArray(path)
         save(swapPath,lines)
         position = 0
+ 
+    #creates file sys arg (passed path) if does not exist and is path is not DIR
     elif(os.path.isdir(checkPath) == False):
         path = str(os.path.abspath(checkPath))
         cNewCmd(path)
