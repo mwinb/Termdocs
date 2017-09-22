@@ -27,7 +27,14 @@ def main():
         lines = fillArray(path)
         save(swapPath,lines)
         position = 0
-  
+    elif(os.path.isdir(checkPath) == False):
+        path = str(os.path.abspath(checkPath))
+        cNewCmd(path)
+        swapPath = path + "-swap"
+        lines = fillArray(path)
+        save(swapPath,lines)
+        position = 0
+
     # Uses manual input to create or open file
     else:
         path = getDirectory()
@@ -123,7 +130,7 @@ def writer(swapPath,path,lines,start,position):
 def executeCommand(swapPath,path,lines,position,inp,copy,undoStack,redoStack):
  
     #pastes text stored by "copy" on current line
-    if(str(inp) == "-paste"):
+    if(str(inp) == "-pst"):
         inp = copy
  
     #breaks cmnd input loop inside writer function, prompts for save
