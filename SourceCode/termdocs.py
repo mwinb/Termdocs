@@ -78,9 +78,17 @@ def writer(swapPath,path,lines,start,position):
         clear()
         save(path,lines)
         lines = fillArray(path)
-        if(len(lines) <= 1 and lines[0] == ""):
+        print path
+        print "Help Menu (-h)"
+        if(lines == []):
             with open(path,'w+') as f:
                 f.write(str(raw_input("0: ")) + "\n")
+            lines = fillArray(path)
+            start = 0
+            position = 1
+            clear()
+            print path
+            print "Help Menu (-h)"
         if(start < 0):
             start = 0;
         count = start
@@ -88,9 +96,6 @@ def writer(swapPath,path,lines,start,position):
         #sets position to 0 if end of document is reached
         if(position > len(lines)-1):
             position = 0
-        print path
-        print "Help Menu (-h)"
-        
         #prints line numbers in front of doc lines
         #prints current line
         while( count <= position):
