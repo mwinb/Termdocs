@@ -7,6 +7,8 @@ import os
 import sys
 import platform
 import subprocess
+
+
  
 def main():
     clear()
@@ -521,7 +523,8 @@ def executeCommand(swapPath,path,lines,position,inp,copy,undoStack,redoStack):
         save(path,lines)
         position +=1
         return [0,swapPath,path,lines,0,position,copy,undoStack,redoStack]
- 
+
+
 #inserts new line if current line is not last line
     elif(position < len(lines) and str(inp) != ""):
         undoStack = fillArray(path)
@@ -647,5 +650,5 @@ def clear():
 	else:
 		os.system('clear');
 	return
-        
+
 main()
