@@ -169,6 +169,8 @@ def executeCommand(swapPath,path,lines,position,inp,copy,undoStack,redoStack):
         print "-------------------------------------------"
         print "-| -g       |Goes to Specified Line       -"
         print "-------------------------------------------"
+        print "-| -i      |Deletes Selection            -"
+        print "-------------------------------------------"
         print "-| -ps      |Prints Selection, Insert     -"
         print "-|          |Starts at End of Selection   -"
         print "-------------------------------------------"
@@ -327,6 +329,25 @@ def executeCommand(swapPath,path,lines,position,inp,copy,undoStack,redoStack):
             print "----Invalid Entry----"
             raw_input("Continue? (Hit Enter) ")
             return [0,swapPath,path,lines,0,position,copy,undoStack,redoStack]
+
+#inserts text at chosen line
+    elif(str(inp) == "-i"):
+        try:
+		insertPos = int(raw_input("Enter Line #: "))
+		if (insertPos < 0):
+			raise Exception
+		inp = raw_input(str(insertPos) + ": ")
+		lines.insert(insertPos, str(inp) + '\n')
+		save(path,lines)
+		undoStack = fillArray(path)
+		return [0,swapPath,path,lines,position-20,position,copy,undoStack,redoStack]
+        except Exception:
+            print "----Invalid Selection----"
+            print "---- No Changes Made ----"
+            raw_input("Continue? (Hit Enter) ")
+            return [0,swapPath,path,lines,0,position,copy,undoStack,redoStack]
+
+
 
 #replaces selection one line at a time
     elif(str(inp) == "-rs"):
