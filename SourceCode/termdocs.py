@@ -169,7 +169,9 @@ def executeCommand(swapPath,path,lines,position,inp,copy,undoStack,redoStack):
         print "-------------------------------------------"
         print "-| -g       |Goes to Specified Line       -"
         print "-------------------------------------------"
-        print "-| -i      |Deletes Selection            -"
+        print "-| -f      |Finds inputed text           -"
+        print "-------------------------------------------"
+        print "-| -i      |Inserts at Chosen Line       -"
         print "-------------------------------------------"
         print "-| -ps      |Prints Selection, Insert     -"
         print "-|          |Starts at End of Selection   -"
@@ -493,10 +495,24 @@ def executeCommand(swapPath,path,lines,position,inp,copy,undoStack,redoStack):
             inp = raw_input("Enter Line Number: ")
             position = goTo(inp,position)
             return [0,swapPath,path,lines,0,position,copy,undoStack,redoStack]
-        except Except:
+       except Exception:
             print "----Invalid Input----"
             raw_input("Continue? (Hit Enter) ")
             return [0,swapPath,path,lines,0,position,copy,undoStack,redoStack]
+    elif(str(inp) == "-f"):
+        try:
+            inp = str(raw_input("Find: "))
+            for i in range(len(lines)):
+                if(lines[i].find(inp) != -1):
+                    print(str(i) + ": " + lines[i])
+            raw_input("Continue?")
+            return [0,swapPath,path,lines,0,position,copy,undoStack,redoStack]
+        except Exception:
+            print "----Invalid Input----"
+            raw_input("Continue? (Hit Enter) ")
+            return [0,swapPath,path,lines,0,position,copy,undoStack,redoStack]
+
+
  
 #exports to new document, and then opens
     elif(str(inp) == "-exp"):
@@ -531,8 +547,7 @@ def executeCommand(swapPath,path,lines,position,inp,copy,undoStack,redoStack):
             tempPath = getDirectory()
             programOpen(tempPath)
             return [0,swapPath,path,lines,0,position,copy,undoStack,redoStack]
-
-        except Except:
+        except Exception:
             print "----Invalid Input----"
             raw_input("Continue? (Hit Enter) ")
             return [0,swapPath,path,lines,0,position,copy,undoStack,redoStack]
