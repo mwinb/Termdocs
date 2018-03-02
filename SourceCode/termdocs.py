@@ -495,7 +495,7 @@ def executeCommand(swapPath,path,lines,position,inp,copy,undoStack,redoStack):
             inp = raw_input("Enter Line Number: ")
             position = goTo(inp,position)
             return [0,swapPath,path,lines,0,position,copy,undoStack,redoStack]
-       except Exception:
+        except Exception:
             print "----Invalid Input----"
             raw_input("Continue? (Hit Enter) ")
             return [0,swapPath,path,lines,0,position,copy,undoStack,redoStack]
