@@ -502,6 +502,7 @@ def executeCommand(swapPath,path,lines,position,inp,copy,undoStack,redoStack):
     elif(str(inp) == "-f"):
         try:
             inp = str(raw_input("Find: "))
+            clear()
             for i in range(len(lines)):
                 if(lines[i].find(inp) != -1):
                     print(str(i) + ": " + lines[i])
@@ -526,6 +527,7 @@ def executeCommand(swapPath,path,lines,position,inp,copy,undoStack,redoStack):
             lines = fillArray(expPath)
             swapPath = expPath + "-swap"
             save(swapPath,lines)
+            path = expPath;
             return [0,swapPath,path,lines,0,position,copy,undoStack,redoStack]
         else:
             return [0,swapPath,path,lines,0,position,copy,undoStack,redoStack]
