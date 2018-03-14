@@ -607,6 +607,27 @@ def getDirectory():
         print "----Invalid File Path----"
         raw_input("Continue? (Hit Enter) ")
         main()
+        
+#checks directory for exporting/does not take in prompt for line 0 input
+def getDirectoryExp():
+    try:
+        print "Enter Path to Item You Wish to Open or Create"
+        print "*Including Extension ie '.txt'"
+        path = raw_input("Enter Full Path or (n): ")
+        if(path == "n"):
+            raise SystemExit
+        elif(os.path.isfile(path)):
+            return path
+        elif(os.path.isdir(path) == False):
+            cNewExp(path)
+            return path
+        else:
+            raise Exception
+    except Exception:
+        print "----Invalid File Path----"
+        raw_input("Continue? (Hit Enter) ")
+        main()
+
 
 #creates new document if path doesn't exist and allows entry of first line
 def cNewCmd(path):
@@ -615,6 +636,15 @@ def cNewCmd(path):
     with open(path, 'w+') as f:
         f.write(lineZ + '\n')
     return 
+#exports document for opening
+def cNewExp(path):
+    print(path)
+    lineZ = ""
+    with open(path, 'w+') as f:
+        f.write(lineZ + '\n')
+    return 
+
+
 
 #fills array line x line from document
 def fillArray(path):
@@ -643,7 +673,7 @@ def goTo(newPos, oldPos):
 #writes lines to new document Called from writer -exp
 def exp(lines):
     try:
-        newPath = getDirectory()
+        newPath = getDirectoryExp()
         with open(newPath, 'w+') as f:
             for i in range(len(lines)):
                 f.write(str(lines[i]))
@@ -658,7 +688,7 @@ def save(path,lines):
     with open(path, 'w+') as f:
         for i in range(len(lines)):
             f.write(str(lines[i]))
-    retu
+    return
 
 #Handles opening in default program (writer -o) for each os
 def programOpen(path):
