@@ -61,14 +61,17 @@ class Document(object):
     def printDocument(self):
         self.clear();
         print self.path;
-        print self.swapPath;
+        if platform.system() == "Windows" and self.position > 20 and self.cmd != "-vl":
+            self.start = self.position - 20;
+        elif platform.system() == "Windows" and self.cmd != "-vl":
+            self.start = self.defaultStart;
         for i in range(int(self.start), int(self.position+1)):
             print str(i) + ": " + self.lines[i];
         
         
     def getCmd(self):
-            position = self.position;
-	    self.cmd = str(raw_input(str(position+1) + ": "));
+        position = self.position;
+        self.cmd = str(raw_input(str(position+1) + ": "));
  
     def getStartEnd(self) :
         try:
@@ -281,7 +284,7 @@ class Document(object):
             
         elif self.position < (len(self.lines)-1) and cmd != "":
             self.undo = self.fillArray(self.path);
-            self.lines.insert(self.position, str(cmd) + '\n');
+            self.lines.insert(self.position+1, str(cmd) + '\n');
             self.save(self.path, self.lines);
             self.position += 1;
         
@@ -299,6 +302,7 @@ class Document(object):
         
         self.save(self.path, self.lines);
         self.lines = self.fillArray(self.path);
+        
         return self.kill;
 
     
