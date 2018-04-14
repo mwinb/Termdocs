@@ -29,7 +29,7 @@ Terminal Docs is a line by line text-editor,text-reader,and general purpose work
 
 "-run" runs terminal commands
 
-"-f" finds string
+"-f" finds string and prints list of the lines with that string. 
 
 "-rs" moves through lines allowing user to replace line by line
 
