@@ -1,12 +1,12 @@
 #Created by Michael Winberry Feb 5 2017
 #Version Created April 13 2018
 #Termdocs Text Editor
- 
+
 import os
 import sys
 import platform
 import subprocess
- 
+
 class Document(object):
     
     def __init__(self):
@@ -72,7 +72,7 @@ class Document(object):
     def getCmd(self):
         position = self.position;
         self.cmd = str(raw_input(str(position+1) + ": "));
- 
+
     def getStartEnd(self) :
         try:
             startTemp = int(raw_input("Enter Starting Line #: "));
@@ -111,12 +111,15 @@ class Document(object):
                 self.startUp();
                 
         elif cmd == "-cp":
+            self.copy = "";
             self.copy = str(raw_input("Store Input: "));
         
         elif cmd == "-ccl":
+            self.copy == "";
             self.copy = self.lines[self.position];
         
         elif cmd == "-cs":
+            self.copy == "";
             self.getStartEnd();
             tempCount = self.start;
             while(tempCount <= self.end):
@@ -183,7 +186,7 @@ class Document(object):
             inp = raw_input(str(insertPos) + ": ");
             self.lines.insert(insertPos, str(inp) + '\n');
             self.save(self.path, self.lines);
-         
+        
         elif cmd == "-rs":
             self.undo = self.fillArray(self.path);
             self.getStartEnd();
@@ -243,11 +246,21 @@ class Document(object):
                     if(self.lines[i].find(inp) != -1):
                         print str(i) + ": " + self.lines[i];
                 raw_input("Press Any Key To Continue");
-            
             except Exception:
                 print "----Invalid Input----"
                 raw_input("Continue? (Hit Enter) ")
         
+        elif cmd == "-fr":
+            try:
+                inp = str(raw_input("Find: "));
+                self.clear();
+                for i in range(len(self.lines)):
+                    if(self.lines[i].find(inp) != -1):
+                        self.replaceSelection(i,i);
+            except Exception:
+                print "----Invalid Input----"
+                raw_input("Continue? (Hit Enter) ")
+
         elif cmd == "-exp":
             prompt = raw_input("Open After Exporting? (y/n): ");
             if prompt == "y" :
@@ -328,6 +341,9 @@ class Document(object):
         print "-------------------------------------------";
         print "-| -f      |Finds inputed text           -";
         print "-------------------------------------------";
+        print "-| -fr     |Finds and replaces lines      -";
+        print "-|         |that contain inputed selection-";
+        print "-------------------------------------------";
         print "-| -i      |Inserts at Chosen Line       -";
         print "-------------------------------------------";
         print "-| -ps      |Prints Selection, Insert     -";
@@ -382,11 +398,8 @@ class Document(object):
         while(tempCount <= end):
             print "Replace? (n) to Return without Changes"
             print str(tempCount) + ": " + self.lines[tempCount];
-            
             inp = str(raw_input(str(tempCount) + ": "));
-            
             if inp != "n":
-                self.lines[tempCount] = inp + '\n';
                 self.save(self.path, self.lines);
                 
             tempCount +=1;
@@ -394,7 +407,11 @@ class Document(object):
     def deleteSelection(self, start, end):
         tempCount = start;
         while(tempCount <= end):
-            del self.lines[start];
+            print "Delete? (n) to Return without Changes"
+            print str(start) + ": " + self.lines[start];
+            inp = str(raw_input(str(tempCount) + ": "));
+            if inp != "n":
+                del self.lines[start];
             tempCount +=1;
     
     def getLineNumber(self):
@@ -529,3 +546,6 @@ def main():
         
 main();
     
+
+
+
