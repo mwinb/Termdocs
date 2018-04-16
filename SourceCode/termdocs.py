@@ -252,7 +252,7 @@ class Document(object):
         
         elif cmd == "-fr":
             try:
-                inp = str(raw_input("Find: "));
+                inp = str(raw_input("Find and Replace: "));
                 self.clear();
                 for i in range(len(self.lines)):
                     if(self.lines[i].find(inp) != -1):
@@ -400,6 +400,7 @@ class Document(object):
             print str(tempCount) + ": " + self.lines[tempCount];
             inp = str(raw_input(str(tempCount) + ": "));
             if inp != "n":
+                self.lines[tempCount] = inp + '\n'
                 self.save(self.path, self.lines);
                 
             tempCount +=1;
