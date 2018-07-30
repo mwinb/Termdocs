@@ -449,7 +449,8 @@ class Document(object):
         self.kill = True;
     
     def deleteSwap(self):
-        os.remove(self.swapPath);
+        if self.path != "":
+            os.remove(self.swapPath)
     
     def save(self,path,lines):
         with open(str(path), 'w+') as f:
@@ -468,16 +469,20 @@ class Document(object):
             print "---Invalid File Path----";
             raw_input("Press Any Key to Continue");
             return "Fail"
-        
-    
     
     def getDirectory(self):
         print "Enter Path to Item You Wish to Open or Create";
         print "*Including Extension ie '.txt'";
         path = str(raw_input("Enter Full Path or (n): "));
-        if path == "n" and self.path != "":
+        if self.path == "":
+            self.path = path
+        if (path == "n" or path == "") and self.path != "":
             self.promptSave();
+            self.deleteSwap();
+            raise SystemExit
         elif path == "n" or self.path == "":
+            if self.path != "":
+                self.deleteSwap()
             self.kill = True;
             raise SystemExit;
         else:
@@ -506,9 +511,11 @@ class Document(object):
         if answer != "n" or answer != "N":
             self.save(self.path, self.lines);
         self.deleteSwap();
-        self.startUp();
+        if self.kill == "True":
+            raise SystemExit
+        else:
+            self.startUp()
         
-    
     def cNewCmd(self):
         if not self.lines:
             print(str(self.path))
