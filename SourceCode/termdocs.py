@@ -475,10 +475,11 @@ class Document(object):
         print "Enter Path to Item You Wish to Open or Create";
         print "*Including Extension ie '.txt'";
         path = str(raw_input("Enter Full Path or (n): "));
-        if path == "n" and self.path == "":
-            self.kill = True;
-        elif path == "n" and self.path != "":
+        if path == "n" and self.path != "":
             self.promptSave();
+        elif path == "n" or self.path == "":
+            self.kill = True;
+            raise SystemExit;
         else:
             path = self.checkPath(str(path));
             return path;
