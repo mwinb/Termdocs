@@ -31,13 +31,13 @@ class Document(object):
         return len(self.lines) - 1
     
     def startUp(self):
-        
         if len(sys.argv)-1 >= 1:
             self.path = str(self.checkPath(str(os.path.abspath(sys.argv[1]))));
             if self.path != "Fail":
                 self.lines = self.fillArray(self.path);
                 del sys.argv[1];
             else:
+                self.path = ""
                 del sys.argv[1];
                 self.startUp();
             
@@ -46,17 +46,16 @@ class Document(object):
             if self.path != "Fail":
                 self.lines = self.fillArray(self.path);
             else:
-                self.startUp();
+                self.path = ""
+                self.kill = True
+                return
             
         if not self.lines:
             self.cNewCmd();
-            
         
         self.createSwap();
         self.undo = self.fillArray(self.path);
         self.redo = self.fillArray(self.path);
-
-        
             
     def printDocument(self):
         self.clear();
@@ -98,17 +97,24 @@ class Document(object):
         if cmd == "-q":
             self.clear();
             self.promptSave();
-        
+            self.kill = True
+            return self.kill
         elif cmd == "-h":
             self.helpMenu();
         
         elif cmd == "-on":
             self.save(self.path, self.lines);
+            self.promptSave()
             tempPath = self.getDirectory();
             if tempPath != "Fail":
                 self.deleteSwap();
                 sys.argv.append(tempPath);
                 self.startUp();
+            else:
+                self.deleteSwap()
+                self.kill = True
+                self.path = ""
+                return self.kill
                 
         elif cmd == "-cp":
             self.copy = "";
@@ -446,7 +452,9 @@ class Document(object):
         answer = raw_input("Save before quiting?(y/n)");
         if answer != "n" or answer != "N":
             self.save(self.path, self.lines);
-        self.kill = True;
+        else:
+            self.fillArray(self.swapPath)
+            self.save(self.path, self.lines)
     
     def deleteSwap(self):
         if self.path != "":
@@ -474,21 +482,11 @@ class Document(object):
         print "Enter Path to Item You Wish to Open or Create";
         print "*Including Extension ie '.txt'";
         path = str(raw_input("Enter Full Path or (n): "));
-        if self.path == "":
-            self.path = path
-        if (path == "n" or path == "") and self.path != "":
-            self.promptSave();
-            self.deleteSwap();
-            raise SystemExit
-        elif path == "n" or self.path == "":
-            if self.path != "":
-                self.deleteSwap()
-            self.kill = True;
-            raise SystemExit;
+        if path == "n" or path == "":
+            path = "Fail"
         else:
             path = self.checkPath(str(path));
-            return path;
-            
+        return path
     
     def createSwap(self):
         self.swapPath = str(self.path) + "-swap";
@@ -541,7 +539,7 @@ class Document(object):
 def main():
     termdoc = Document();
     termdoc.startUp();
-    kill = bool(termdoc.getKill());
+    kill = termdoc.getKill()
     
     
     while(kill != True):
@@ -550,8 +548,9 @@ def main():
         termdoc.executeCommand();
         kill = termdoc.getKill();
     
-    termdoc.deleteSwap();
-    raise SystemExit;
+    if termdoc.path != "":
+        termdoc.deleteSwap()
+    raise SystemExit
         
 main();
     
