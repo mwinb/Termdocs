@@ -22,7 +22,24 @@ class Document(object):
         self.defaultStart = 0;
         self.undo = [];
         self.redo = [];
+        self.indent = 0
+        self.spaces = ""
         
+    def reset(self):
+        self.path = "";
+        self.lines = [];
+        self.swapPath = "";
+        self.copy = "";
+        self.cmd = "";
+        self.start = 0;
+        self.end = 0;
+        self.position = 0;
+        self.kill = False;
+        self.defaultStart = 0;
+        self.undo = [];
+        self.redo = [];
+        self.indent = 0
+        self.spaces = ""
     
     def getPath(self):
         return str(self.path);
@@ -30,6 +47,32 @@ class Document(object):
     def getLength(self):
         return len(self.lines) - 1
     
+    def setIndent(self):
+        try:
+            indent = raw_input("Enter # of 4 space tabs: ")
+            if int(indent) >= 0:
+                self.indent = int(indent)
+                self.spaces = ""
+                for i in range(self.indent):
+                    self.spaces += "    "
+            else:
+                raise Exception
+        except Exception:
+            print "----Invalid Input----"
+ 
+    def indentPlus(self):
+        self.indent += 1
+        self.spaces += "    "
+ 
+    def indentMinus(self):
+        if self.indent > 0:
+            self.indent -= 1
+            self.spaces = ""
+            for i in range(self.indent):
+                self.spaces += "    "
+        else:
+            print "----Indent Already Set to 0----"
+ 
     def startUp(self):
         if len(sys.argv)-1 >= 1:
             self.path = str(self.checkPath(str(os.path.abspath(sys.argv[1]))));
@@ -64,13 +107,14 @@ class Document(object):
             self.start = self.position - 20;
         elif platform.system() == "Windows" and self.cmd != "-vl":
             self.start = self.defaultStart;
+ 
         for i in range(int(self.start), int(self.position+1)):
             print str(i) + ": " + self.lines[i];
         
         
     def getCmd(self):
         position = self.position;
-        self.cmd = str(raw_input(str(position+1) + ": "));
+        self.cmd = str(raw_input(str(position+1) + ": " + self.spaces))
 
     def getStartEnd(self) :
         try:
@@ -99,9 +143,19 @@ class Document(object):
             self.promptSave();
             self.kill = True
             return self.kill
+ 
         elif cmd == "-h":
             self.helpMenu();
-        
+ 
+        elif cmd == "-id":
+            self.setIndent()
+ 
+        elif cmd == "-idp":
+            self.indentMinus()
+ 
+        elif cmd == "-idn":
+            self.indentPlus()
+ 
         elif cmd == "-on":
             self.save(self.path, self.lines);
             self.promptSave()
@@ -109,12 +163,14 @@ class Document(object):
             if tempPath != "Fail":
                 self.deleteSwap();
                 sys.argv.append(tempPath);
+                self.reset()
                 self.startUp();
             else:
                 self.deleteSwap()
                 self.kill = True
                 self.path = ""
                 return self.kill
+            return
                 
         elif cmd == "-cp":
             self.copy = "";
@@ -189,8 +245,10 @@ class Document(object):
         elif cmd == "-i":
             self.undo = self.fillArray(self.path);
             insertPos = self.getLineNumber();
-            inp = raw_input(str(insertPos) + ": ");
-            self.lines.insert(insertPos, str(inp) + '\n');
+            print str(insertPos) + ": " + self.lines[insertPos]
+            self.setIndent()
+            inp = raw_input(str(insertPos) + ": " + self.spaces)
+            self.lines.insert(insertPos, self.spaces + str(inp) + '\n')
             self.save(self.path, self.lines);
         
         elif cmd == "-rs":
@@ -201,7 +259,6 @@ class Document(object):
             self.save(self.path, self.lines);
             self.start = self.defaultStart;
         
-            
         elif cmd == "-rep":
             self.undo = self.fillArray(self.path);
             selection = self.getLineNumber();
@@ -297,13 +354,13 @@ class Document(object):
             
         elif self.position == (len(self.lines)-1) and cmd != "":
             self.undo = self.fillArray(self.path);
-            self.lines.append(str(cmd) + '\n');
+            self.lines.append(self.spaces + str(cmd) + '\n')
             self.save(self.path, self.lines);
             self.position += 1;
             
         elif self.position < (len(self.lines)-1) and cmd != "":
             self.undo = self.fillArray(self.path);
-            self.lines.insert(self.position+1, str(cmd) + '\n');
+            self.lines.insert(self.position+1, self.spaces + str(cmd) + '\n')
             self.save(self.path, self.lines);
             self.position += 1;
         
@@ -404,9 +461,10 @@ class Document(object):
         while(tempCount <= end):
             print "Replace? (n) to Return without Changes"
             print str(tempCount) + ": " + self.lines[tempCount];
-            inp = str(raw_input(str(tempCount) + ": "));
+            self.setIndent()
+            inp = str(raw_input(str(tempCount) + ": " + self.spaces))
             if inp != "n":
-                self.lines[tempCount] = inp + '\n'
+                self.lines[tempCount] = self.spaces + inp + '\n'
                 self.save(self.path, self.lines);
                 
             tempCount +=1;
