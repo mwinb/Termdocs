@@ -409,6 +409,12 @@ class Document(object):
         print "-------------------------------------------";
         print "-| -i      |Inserts at Chosen Line       -";
         print "-------------------------------------------";
+        print "-| -id     | Requests and Sets # of Tabs  -";
+        print "-------------------------------------------";
+        print "-| -idp    | Removes 4 spaces from indent -";
+        print "-------------------------------------------";
+        print "-| -idn    | Adds 4 space to the indent   -";
+        print "-------------------------------------------";
         print "-| -ps      |Prints Selection, Insert     -";
         print "-|          |Starts at End of Selection   -";
         print "-------------------------------------------";
