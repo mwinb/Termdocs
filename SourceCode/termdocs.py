@@ -517,14 +517,12 @@ class Document(object):
             self.lines = []
             self.lines = self.fillArray(self.swapPath)
             self.save(self.path, self.lines)
-        return
     
     def deleteSwap(self):
         if self.path != "":
             os.remove(self.swapPath)
     
     def save(self,path,lines):
-        open(path, 'w').close()
         with open(str(path), 'w+') as f:
             for i in range(len(lines)):
                 f.write(str(lines[i]));
@@ -565,7 +563,6 @@ class Document(object):
                     lines.append(line);
             return lines;
         except Exception:
-            raw_input("   ")
             return [];
             
     def cNewCmd(self):
