@@ -157,7 +157,6 @@ class Document(object):
             self.indentPlus()
  
         elif cmd == "-on":
-            self.save(self.path, self.lines);
             self.promptSave()
             tempPath = self.getDirectory();
             if tempPath != "Fail":
@@ -170,7 +169,6 @@ class Document(object):
                 self.kill = True
                 self.path = ""
                 return self.kill
-            return
                 
         elif cmd == "-cp":
             self.copy = "";
@@ -376,12 +374,11 @@ class Document(object):
         if(self.position > (len(self.lines)-1)):
             self.position = 0;
         
-        self.save(self.path, self.lines);
-        self.lines = self.fillArray(self.path);
-        
+        self.save(self.path, self.lines)
+        lines = self.fillArray(self.path)
+         
         return self.kill;
 
-    
     def helpMenu(self):
         self.clear();
         print "-------------------------------------------";
@@ -514,17 +511,20 @@ class Document(object):
         
     def promptSave(self):
         answer = raw_input("Save before quiting?(y/n)");
-        if answer != "n" or answer != "N":
+        if answer != "n" and answer != "N":
             self.save(self.path, self.lines);
         else:
-            self.fillArray(self.swapPath)
+            self.lines = []
+            self.lines = self.fillArray(self.swapPath)
             self.save(self.path, self.lines)
+        return
     
     def deleteSwap(self):
         if self.path != "":
             os.remove(self.swapPath)
     
     def save(self,path,lines):
+        open(path, 'w').close()
         with open(str(path), 'w+') as f:
             for i in range(len(lines)):
                 f.write(str(lines[i]));
@@ -565,19 +565,9 @@ class Document(object):
                     lines.append(line);
             return lines;
         except Exception:
+            raw_input("   ")
             return [];
             
-    
-    def openNew(self):
-        answer = raw_input("Save before quiting?(y/n)");
-        if answer != "n" or answer != "N":
-            self.save(self.path, self.lines);
-        self.deleteSwap();
-        if self.kill == "True":
-            raise SystemExit
-        else:
-            self.startUp()
-        
     def cNewCmd(self):
         if not self.lines:
             print(str(self.path))
@@ -585,7 +575,6 @@ class Document(object):
             with open(str(self.path), 'w+') as f:
                 f.write(lineZ + '\n');
             self.lines.append(str(lineZ) + '\n');
-    
         
     def run(self):
         try:
