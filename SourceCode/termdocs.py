@@ -10,39 +10,39 @@ import subprocess
 class Document(object):
     
     def __init__(self):
-        self.path = "";
-        self.lines = [];
-        self.swapPath = "";
+        self.path = ""
+        self.lines = []
+        self.swapPath = ""
         self.copy = []
-        self.cmd = "";
-        self.start = 0;
-        self.end = 0;
-        self.position = 0;
-        self.kill = False;
-        self.defaultStart = 0;
-        self.undo = [];
-        self.redo = [];
+        self.cmd = ""
+        self.start = 0
+        self.end = 0
+        self.position = 0
+        self.kill = False
+        self.defaultStart = 0
+        self.undo = []
+        self.redo = []
         self.indent = 0
         self.spaces = ""
         
     def reset(self):
-        self.path = "";
-        self.lines = [];
-        self.swapPath = "";
+        self.path = ""
+        self.lines = []
+        self.swapPath = ""
         self.copy = []
-        self.cmd = "";
-        self.start = 0;
-        self.end = 0;
-        self.position = 0;
-        self.kill = False;
-        self.defaultStart = 0;
-        self.undo = [];
-        self.redo = [];
+        self.cmd = ""
+        self.start = 0
+        self.end = 0
+        self.position = 0
+        self.kill = False
+        self.defaultStart = 0
+        self.undo = []
+        self.redo = []
         self.indent = 0
         self.spaces = ""
     
     def getPath(self):
-        return str(self.path);
+        return str(self.path)
     
     def getLength(self):
         return len(self.lines) - 1
@@ -87,62 +87,62 @@ class Document(object):
  
     def startUp(self):
         if len(sys.argv)-1 >= 1:
-            self.path = str(self.checkPath(str(os.path.abspath(sys.argv[1]))));
+            self.path = str(self.checkPath(str(os.path.abspath(sys.argv[1]))))
             if self.path != "Fail":
-                self.lines = self.fillArray(self.path);
-                del sys.argv[1];
+                self.lines = self.fillArray(self.path)
+                del sys.argv[1]
             else:
                 self.path = ""
-                del sys.argv[1];
-                self.startUp();
+                del sys.argv[1]
+                self.startUp()
             
         else:
-            self.path = str(self.getDirectory());
+            self.path = str(self.getDirectory())
             if self.path != "Fail":
-                self.lines = self.fillArray(self.path);
+                self.lines = self.fillArray(self.path)
             else:
                 self.path = ""
                 self.kill = True
                 return
             
         if not self.lines:
-            self.cNewCmd();
+            self.cNewCmd()
         
-        self.createSwap();
-        self.undo = self.fillArray(self.path);
-        self.redo = self.fillArray(self.path);
+        self.createSwap()
+        self.undo = self.fillArray(self.path)
+        self.redo = self.fillArray(self.path)
             
     def printDocument(self):
-        self.clear();
-        print self.path;
+        self.clear()
+        print self.path
         if platform.system() == "Windows" and self.position > 20 and self.cmd != "-vl":
-            self.start = self.position - 20;
+            self.start = self.position - 20
         elif platform.system() == "Windows" and self.cmd != "-vl":
-            self.start = self.defaultStart;
+            self.start = self.defaultStart
  
         for i in range(int(self.start), int(self.position+1)):
-            print str(i) + ": " + self.lines[i];
+            print str(i) + ": " + self.lines[i]
         
         
     def getCmd(self):
-        position = self.position;
+        position = self.position
         self.cmd = str(raw_input(str(position+1) + ": " + self.spaces))
 
     def getStartEnd(self) :
         try:
-            startTemp = int(raw_input("Enter Starting Line #: "));
-            endTemp = int(raw_input("Enter Ending Line #: "));
+            startTemp = int(raw_input("Enter Starting Line #: "))
+            endTemp = int(raw_input("Enter Ending Line #: "))
             if startTemp >= (len(self.lines)) or startTemp < 0:
-                raise Exception;
+                raise Exception
             elif endTemp >= (len(self.lines)) or endTemp < 0:
                 raise Exception
             else:
-                self.start = startTemp;
-                self.end = endTemp;
+                self.start = startTemp
+                self.end = endTemp
         except Exception:
-            print "----Start and End Must Be Valid Line #'s----";
-            raw_input("Press Any Key to Continue");
-            self.getStartEnd();
+            print "----Start and End Must Be Valid Line #'s----"
+            raw_input("Press Any Key to Continue")
+            self.getStartEnd()
     
     def executeCommand(self):
         cmd = self.cmd
@@ -158,13 +158,13 @@ class Document(object):
             
         
         elif cmd == "-q":
-            self.clear();
-            self.promptSave();
+            self.clear()
+            self.promptSave()
             self.kill = True
             return self.kill
  
         elif cmd == "-h":
-            self.helpMenu();
+            self.helpMenu()
  
         elif cmd == "-id":
             self.chooseIndent(self.position)
@@ -180,12 +180,12 @@ class Document(object):
              
         elif cmd == "-on":
             self.promptSave()
-            tempPath = self.getDirectory();
+            tempPath = self.getDirectory()
             if tempPath != "Fail":
-                self.deleteSwap();
-                sys.argv.append(tempPath);
+                self.deleteSwap()
+                sys.argv.append(tempPath)
                 self.reset()
-                self.startUp();
+                self.startUp()
             else:
                 self.deleteSwap()
                 self.kill = True
@@ -202,199 +202,199 @@ class Document(object):
             
         elif cmd == "-cs":
             self.copy = []
-            self.getStartEnd();
-            tempCount = self.start;
+            self.getStartEnd()
+            tempCount = self.start
             while(tempCount <= self.end):
                 self.copy.append(self.stripCopy(tempCount))
-                tempCount += 1;
-            self.start = self.defaultStart;
+                tempCount += 1
+            self.start = self.defaultStart
         
         elif cmd == "-ud":
-            self.redo = self.fillArray(self.path);
-            self.lines = self.undo;
-            self.save(self.path, self.lines);
+            self.redo = self.fillArray(self.path)
+            self.lines = self.undo
+            self.save(self.path, self.lines)
         
         elif cmd == "-rd":
-            self.undo = self.fillArray(self.path);
-            self.save(self.path, self.redo);
-            self.lines = self.fillArray(self.path);
+            self.undo = self.fillArray(self.path)
+            self.save(self.path, self.redo)
+            self.lines = self.fillArray(self.path)
         
         elif cmd == "-vl":
-            self.clear();
-            defaultPosition = self.position;
-            self.position = len(self.lines)-1;
-            self.printDocument();
-            raw_input("Press Any Key to Continue");
-            self.position = defaultPosition;
+            self.clear()
+            defaultPosition = self.position
+            self.position = len(self.lines)-1
+            self.printDocument()
+            raw_input("Press Any Key to Continue")
+            self.position = defaultPosition
         
         elif cmd == "-v":
-            self.clear();
+            self.clear()
             for i in range(len(self.lines)):
-                print self.lines[i];
-            raw_input("Press Any Key to Continue");
+                print self.lines[i]
+            raw_input("Press Any Key to Continue")
             
         elif cmd == "-vs":
-            self.getStartEnd();
-            self.clear();
-            self.position = self.end;
-            self.printDocument();
-            raw_input("Press Any Key to Continue");
-            self.start = self.defaultStart;
+            self.getStartEnd()
+            self.clear()
+            self.position = self.end
+            self.printDocument()
+            raw_input("Press Any Key to Continue")
+            self.start = self.defaultStart
         
         elif cmd == "-ps":
-            self.getStartEnd();
-            self.clear();
+            self.getStartEnd()
+            self.clear()
             for i in range(int(self.start), int(self.end+1)):
-                print self.lines[i];
-            raw_input("Press Any Key to Continue");
-            self.start = self.defaultStart;
+                print self.lines[i]
+            raw_input("Press Any Key to Continue")
+            self.start = self.defaultStart
             
         elif cmd == "-o":
-            self.clear();
-            self.programOpen(self.path);
-            self.lines = self.fillArray(self.path);
-            self.save(self.path, self.lines);
-            raw_input("Save and Close Program." + "\n" + "Press Any Key to Continue");
+            self.clear()
+            self.programOpen(self.path)
+            raw_input("Save and Close Program." + "\n" + "Press Any Key to Continue")
+            self.lines = self.fillArray(self.path)
+            self.save(self.path, self.lines)
         
         elif cmd == "-end":
-            self.position = len(self.lines)-1;
+            self.position = len(self.lines)-1
             
         elif cmd == "-begin":
-            self.position = 0;
+            self.position = 0
         
         elif cmd == "-i":
-            self.undo = self.fillArray(self.path);
-            insertPos = self.getLineNumber();
+            self.undo = self.fillArray(self.path)
+            insertPos = self.getLineNumber()
             print str(insertPos) + ": " + self.lines[insertPos]
             self.chooseIndent(insertPos)
             inp = raw_input(str(insertPos) + ": " + self.spaces)
             self.lines.insert(insertPos, self.spaces + str(inp) + '\n')
-            self.save(self.path, self.lines);
+            self.save(self.path, self.lines)
         
         elif cmd == "-rs":
-            self.undo = self.fillArray(self.path);
-            self.getStartEnd();
+            self.undo = self.fillArray(self.path)
+            self.getStartEnd()
             self.clear()
-            self.replaceSelection(self.start, self.end);
-            self.save(self.path, self.lines);
-            self.start = self.defaultStart;
+            self.replaceSelection(self.start, self.end)
+            self.save(self.path, self.lines)
+            self.start = self.defaultStart
         
         elif cmd == "-rep":
-            self.undo = self.fillArray(self.path);
-            selection = self.getLineNumber();
-            self.replaceSelection(selection, selection);
-            self.save(self.path, self.lines);
+            self.undo = self.fillArray(self.path)
+            selection = self.getLineNumber()
+            self.replaceSelection(selection, selection)
+            self.save(self.path, self.lines)
             
         elif cmd == "-rcl":
-            self.undo = self.fillArray(self.path);
-            self.replaceSelection(self.position, self.position);
-            self.save(self.path, self.lines);
+            self.undo = self.fillArray(self.path)
+            self.replaceSelection(self.position, self.position)
+            self.save(self.path, self.lines)
         
         elif cmd == "-del":
-            self.undo = self.fillArray(self.path);
-            selection = self.getLineNumber();
-            self.deleteSelection(selection, selection);
-            self.save(self.path, self.lines);
-            self.position = selection-1;
+            self.undo = self.fillArray(self.path)
+            selection = self.getLineNumber()
+            self.deleteSelection(selection, selection)
+            self.save(self.path, self.lines)
+            self.position = selection-1
         
         elif cmd == "-ds":
-            self.undo = self.fillArray(self.path);
-            self.getStartEnd();
+            self.undo = self.fillArray(self.path)
+            self.getStartEnd()
             self.clear()
-            self.deleteSelection(self.start, self.end);
-            self.save(self.path, self.lines);
-            self.position = self.start-1;
-            self.start = self.defaultStart;
+            self.deleteSelection(self.start, self.end)
+            self.save(self.path, self.lines)
+            self.position = self.start-1
+            self.start = self.defaultStart
         
         elif cmd == "-dcl":
-            self.undo = self.fillArray(self.path);
-            self.deleteSelection(self.position, self.position);
-            self.save(self.path, self.lines);
-            self.position = self.position-1;
+            self.undo = self.fillArray(self.path)
+            self.deleteSelection(self.position, self.position)
+            self.save(self.path, self.lines)
+            self.position = self.position-1
             
         elif cmd == "-b":
             if(self.position == 0):
-                self.position = len(self.lines)-1;
+                self.position = len(self.lines)-1
             else:
-                self.position = self.position-1;
+                self.position = self.position-1
         
         elif cmd == "-g":
-            self.position = int(self.getLineNumber());
+            self.position = int(self.getLineNumber())
         
         elif cmd == "-f":
             try:
-                inp = str(raw_input("Find: "));
-                self.clear();
+                inp = str(raw_input("Find: "))
+                self.clear()
                 for i in range(len(self.lines)):
                     if(self.lines[i].find(inp) != -1):
-                        print str(i) + ": " + self.lines[i];
-                raw_input("Press Any Key To Continue");
+                        print str(i) + ": " + self.lines[i]
+                raw_input("Press Any Key To Continue")
             except Exception:
                 print "----Invalid Input----"
                 raw_input("Continue? (Hit Enter) ")
         
         elif cmd == "-fr":
             try:
-                inp = str(raw_input("Find and Replace: "));
-                self.clear();
+                inp = str(raw_input("Find and Replace: "))
+                self.clear()
                 for i in range(len(self.lines)):
                     if(self.lines[i].find(inp) != -1):
-                        self.replaceSelection(i,i);
+                        self.replaceSelection(i,i)
             except Exception:
                 print "----Invalid Input----"
                 raw_input("Continue? (Hit Enter) ")
 
         elif cmd == "-exp":
-            prompt = raw_input("Open After Exporting? (y/n): ");
+            prompt = raw_input("Open After Exporting? (y/n): ")
             if prompt == "y" :
-                self.save(self.path, self.lines);
-                tempPath = self.getDirectory();
+                self.save(self.path, self.lines)
+                tempPath = self.getDirectory()
                 if tempPath != "Fail":
-                    self.save(tempPath, self.lines);
-                    self.deleteSwap();
-                    sys.argv.append(tempPath);
-                    self.startUp();
+                    self.save(tempPath, self.lines)
+                    self.deleteSwap()
+                    sys.argv.append(tempPath)
+                    self.startUp()
             else:
-                tempPath = self.getDirectory();
+                tempPath = self.getDirectory()
                 if tempPath != "Fail":
-                    self.save(tempPath, self.lines);
+                    self.save(tempPath, self.lines)
         
         elif cmd == "-run":
-            killSwitch = False;
+            killSwitch = False
             while(killSwitch == False):
-                self.run();
-                quit = raw_input("Continue? y/n");
+                self.run()
+                quit = raw_input("Continue? y/n")
                 if quit == "n":
-                    killSwitch = True;
+                    killSwitch = True
         
         elif cmd == "-oe":
-            tempPath = self.getDirectory();
+            tempPath = self.getDirectory()
             if tempPath != "Fail":
-                self.programOpen(tempPath);
+                self.programOpen(tempPath)
             
         elif self.position == (len(self.lines)-1) and cmd != "":
-            self.undo = self.fillArray(self.path);
+            self.undo = self.fillArray(self.path)
             self.lines.append(self.spaces + str(cmd) + '\n')
-            self.save(self.path, self.lines);
-            self.position += 1;
+            self.save(self.path, self.lines)
+            self.position += 1
             
         elif self.position < (len(self.lines)-1) and cmd != "":
-            self.undo = self.fillArray(self.path);
+            self.undo = self.fillArray(self.path)
             self.lines.insert(self.position+1, self.spaces + str(cmd) + '\n')
-            self.save(self.path, self.lines);
-            self.position += 1;
+            self.save(self.path, self.lines)
+            self.position += 1
         
         elif cmd == "" and self.position < (len(self.lines)-1):
-            self.position += 1;
+            self.position += 1
         
         elif cmd == "" and self.position == (len(self.lines)-1):
-            self.position = 0;
+            self.position = 0
         
         else:
-            self.position += 1;
+            self.position += 1
             
         if(self.position > (len(self.lines)-1)):
-            self.position = 0;
+            self.position = 0
         
         if (cmd == ""):
             self.setIndent(self.getTabs(self.position))
@@ -402,144 +402,144 @@ class Document(object):
         self.save(self.path, self.lines)
         lines = self.fillArray(self.path)
          
-        return self.kill;
+        return self.kill
 
     def helpMenu(self):
-        self.clear();
-        print "-------------------------------------------";
-        print "-| Write Text and Hit Enter to Insert    |-";
-        print "-| Your Text on the Line Shown on the    |-";
-        print "-| Bottom Left Corner of the Terminal    |-";
-        print "-------------------------------------------";
-        print "-| Hit Enter At Any Time While the Input |-";
-        print "-| Line is Empty to View Next Line       |-";
-        print "-------------------------------------------";
-        print "-| -q       |Quit Program / oneLine Mode  -";
-        print "-------------------------------------------";
-        print "-| -run     |Takes a Terminal/CMD Command -";
-        print "-------------------------------------------";
-        print "-| -o       |Opens in Default Program     -";
-        print "-------------------------------------------";
-        print "-| -b       |Moves to Previous Line       -";
-        print "-------------------------------------------";
-        print "-| -g       |Goes to Specified Line       -";
-        print "-------------------------------------------";
-        print "-| -f      |Finds inputed text           -";
-        print "-------------------------------------------";
-        print "-| -fr     |Finds and replaces lines      -";
-        print "-|         |that contain inputed selection-";
-        print "-------------------------------------------";
-        print "-| -i      |Inserts at Chosen Line       -";
-        print "-------------------------------------------";
-        print "-| -id     | Requests and Sets # of Tabs  -";
-        print "-------------------------------------------";
-        print "-| -idp    | Removes 4 spaces from indent -";
-        print "-------------------------------------------";
-        print "-| -idn    | Adds 4 space to the indent   -";
-        print "-------------------------------------------";
-        print "-| -ida    | Sets Indent to Match Previous-";
-        print "-------------------------------------------";
-        print "-| -ps      |Prints Selection, Insert     -";
-        print "-|          |Starts at End of Selection   -";
-        print "-------------------------------------------";
-        print "-| -rs      |Replaces Selection One Line  -";
-        print "-|          |At a Time                    -";
-        print "-------------------------------------------";
-        print "-| -ds      |Deletes Selection            -";
-        print "-------------------------------------------";
-        print "-| -vs      |View Selection Without Lines -";
-        print "-------------------------------------------";
-        print "-| -dcl     |Deletes Current Line         -";
-        print "-------------------------------------------";
-        print "-| -del     |Deletes Specified Line       -";
-        print "-------------------------------------------";
-        print "-| -rcl     |Replaces Current Line        -";
-        print "-------------------------------------------";
-        print "-| -rep     |Replaces Specified Line      -";
-        print "-------------------------------------------";
-        print "-| -exp     |Exports Current File to New  -";
-        print "-------------------------------------------";
-        print "-| -end     |Jump to End                  -";
-        print "-------------------------------------------";
-        print "-| -begin   |Jump to Beginning            -";
-        print "-------------------------------------------";
-        print "-| -vl      |View Whole Doc With Line #'s -";
-        print "-------------------------------------------";
-        print "-| -v       |View Without Line #'s        -";
-        print "-------------------------------------------";
-        print "-| -ud      |Undo Last Change             -";
-        print "-------------------------------------------";
-        print "-| -rd      |Redo Last Change             -";
-        print "-------------------------------------------";
-        print "-| -cp      |Store Text for Insert        -";
-        print "-------------------------------------------";
-        print "-| -cs      |Store Selection for Insert   -";
-        print "-------------------------------------------";
-        print "-| -ccl     |Copy Current Line for Insert -";
-        print "-------------------------------------------";
-        print "-| -pst     |Paste to Current line        -";
-        print "-------------------------------------------";
-        print "-| -oe      |Open Separate Doc in Default -";
-        print "-|          |Program                      -";
-        print "-------------------------------------------";
-        print "-| -on      |Open New File                -";
-        print "-------------------------------------------";
-        raw_input("Press Any Key to Return to Document");
+        self.clear()
+        print "-------------------------------------------"
+        print "-| Write Text and Hit Enter to Insert    |-"
+        print "-| Your Text on the Line Shown on the    |-"
+        print "-| Bottom Left Corner of the Terminal    |-"
+        print "-------------------------------------------"
+        print "-| Hit Enter At Any Time While the Input |-"
+        print "-| Line is Empty to View Next Line       |-"
+        print "-------------------------------------------"
+        print "-| -q       |Quit Program / oneLine Mode  -"
+        print "-------------------------------------------"
+        print "-| -run     |Takes a Terminal/CMD Command -"
+        print "-------------------------------------------"
+        print "-| -o       |Opens in Default Program     -"
+        print "-------------------------------------------"
+        print "-| -b       |Moves to Previous Line       -"
+        print "-------------------------------------------"
+        print "-| -g       |Goes to Specified Line       -"
+        print "-------------------------------------------"
+        print "-| -f       |Finds inputed text           -"
+        print "-------------------------------------------"
+        print "-| -fr      |Finds and replaces lines     -"
+        print "-|          |containing passed value      -"
+        print "-------------------------------------------"
+        print "-| -i       |Inserts at Chosen Line       -"
+        print "-------------------------------------------"
+        print "-| -id      |Requests and Sets # of Tabs  -"
+        print "-------------------------------------------"
+        print "-| -idp     |Removes 4 spaces from indent -"
+        print "-------------------------------------------"
+        print "-| -idn     |Adds 4 space to the indent   -"
+        print "-------------------------------------------"
+        print "-| -ida     |Sets Indent to Match Previous-"
+        print "-------------------------------------------"
+        print "-| -ps      |Prints Selection, Insert     -"
+        print "-|          |Starts at End of Selection   -"
+        print "-------------------------------------------"
+        print "-| -rs      |Replaces Selection One Line  -"
+        print "-|          |At a Time                    -"
+        print "-------------------------------------------"
+        print "-| -ds      |Deletes Selection            -"
+        print "-------------------------------------------"
+        print "-| -vs      |View Selection Without Lines -"
+        print "-------------------------------------------"
+        print "-| -dcl     |Deletes Current Line         -"
+        print "-------------------------------------------"
+        print "-| -del     |Deletes Specified Line       -"
+        print "-------------------------------------------"
+        print "-| -rcl     |Replaces Current Line        -"
+        print "-------------------------------------------"
+        print "-| -rep     |Replaces Specified Line      -"
+        print "-------------------------------------------"
+        print "-| -exp     |Exports Current File to New  -"
+        print "-------------------------------------------"
+        print "-| -end     |Jump to End                  -"
+        print "-------------------------------------------"
+        print "-| -begin   |Jump to Beginning            -"
+        print "-------------------------------------------"
+        print "-| -vl      |View Whole Doc With Line #'s -"
+        print "-------------------------------------------"
+        print "-| -v       |View Without Line #'s        -"
+        print "-------------------------------------------"
+        print "-| -ud      |Undo Last Change             -"
+        print "-------------------------------------------"
+        print "-| -rd      |Redo Last Change             -"
+        print "-------------------------------------------"
+        print "-| -cp      |Store Text for Insert        -"
+        print "-------------------------------------------"
+        print "-| -cs      |Store Selection for Insert   -"
+        print "-------------------------------------------"
+        print "-| -ccl     |Copy Current Line for Insert -"
+        print "-------------------------------------------"
+        print "-| -pst     |Paste to Current line        -"
+        print "-------------------------------------------"
+        print "-| -oe      |Open Separate Doc in Default -"
+        print "-|          |Program                      -"
+        print "-------------------------------------------"
+        print "-| -on      |Open New File                -"
+        print "-------------------------------------------"
+        raw_input("Press Any Key to Return to Document")
     
     def replaceSelection(self, start, end):
-        tempCount = start;
+        tempCount = start
         while(tempCount <= end):
             print "Replace? (n) to Return without Changes"
-            print str(tempCount) + ": " + self.lines[tempCount];
+            print str(tempCount) + ": " + self.lines[tempCount]
             self.chooseIndent(tempcount)
             inp = str(raw_input(str(tempCount) + ": " + self.spaces))
             if inp != "n":
                 self.lines[tempCount] = self.spaces + inp + '\n'
-                self.save(self.path, self.lines);
+                self.save(self.path, self.lines)
                 
-            tempCount +=1;
+            tempCount +=1
     
     def deleteSelection(self, start, end):
-        tempCount = start;
+        tempCount = start
         while(tempCount <= end):
             print "Delete? (n) to Return without Changes"
-            print str(start) + ": " + self.lines[start];
-            inp = str(raw_input(str(tempCount) + ": "));
+            print str(start) + ": " + self.lines[start]
+            inp = str(raw_input(str(tempCount) + ": "))
             if inp != "n":
-                del self.lines[start];
-            tempCount +=1;
+                del self.lines[start]
+            tempCount +=1
     
     def getLineNumber(self):
         try:
-            position = int(raw_input("Enter Line Number: "));
+            position = int(raw_input("Enter Line Number: "))
             if position < 0 or position > (len(self.lines)-1):
-                raise Exception;
+                raise Exception
             else:
-                return position;
+                return position
         except Exception:
-            print "----Invalid Input----";
-            raw_input("Press Any Key To Continue");
-            return self.position;
+            print "----Invalid Input----"
+            raw_input("Press Any Key To Continue")
+            return self.position
     
     def clear(self):
         if platform.system() == 'Windows':
-            os.system('cls');
+            os.system('cls')
         else:
-            os.system('clear');
+            os.system('clear')
     
     def programOpen(self, path):
         if platform.system() == "Windows":
-            os.startfile(path);
+            os.startfile(path)
         elif platform.system() == "Linux":
-            subprocess.Popen(["xdg-open", path]);
+            subprocess.Popen(["xdg-open", path])
         else:
-            subprocess.Popen(["open", path]);
+            subprocess.Popen(["open", path])
         
         
     def promptSave(self):
-        answer = raw_input("Save before quiting?(y/n)");
+        answer = raw_input("Save before quiting?(y/n)")
         if answer != "n" and answer != "N":
-            self.save(self.path, self.lines);
+            self.save(self.path, self.lines)
         else:
             self.lines = []
             self.lines = self.fillArray(self.swapPath)
@@ -552,66 +552,66 @@ class Document(object):
     def save(self,path,lines):
         with open(str(path), 'w+') as f:
             for i in range(len(lines)):
-                f.write(str(lines[i]));
+                f.write(str(lines[i]))
     
     def checkPath(self,path):
         try:
             if(os.path.isfile(path)):
-                return str(path);
+                return str(path)
             elif(os.path.isdir(path) == False):
-                return path;
+                return path
             else:
-                raise Exception;
+                raise Exception
         except Exception:
-            print "---Invalid File Path----";
-            raw_input("Press Any Key to Continue");
+            print "---Invalid File Path----"
+            raw_input("Press Any Key to Continue")
             return "Fail"
     
     def getDirectory(self):
-        print "Enter Path to Item You Wish to Open or Create";
-        print "*Including Extension ie '.txt'";
-        path = str(raw_input("Enter Full Path or (n): "));
+        print "Enter Path to Item You Wish to Open or Create"
+        print "*Including Extension ie '.txt'"
+        path = str(raw_input("Enter Full Path or (n): "))
         if path == "n" or path == "":
             path = "Fail"
         else:
-            path = self.checkPath(str(path));
+            path = self.checkPath(str(path))
         return path
     
     def createSwap(self):
-        self.swapPath = str(self.path) + "-swap";
-        self.save(self.swapPath, self.lines);
+        self.swapPath = str(self.path) + "-swap"
+        self.save(self.swapPath, self.lines)
     
     
     def fillArray(self,path):
         try:
-            lines = [];
+            lines = []
             with open(str(path), 'r+') as f:
                 for line in f.readlines():
-                    lines.append(line);
-            return lines;
+                    lines.append(line)
+            return lines
         except Exception:
-            return [];
+            return []
             
     def cNewCmd(self):
         if not self.lines:
             print(str(self.path))
-            lineZ = str(raw_input("0: "));
+            lineZ = str(raw_input("0: "))
             with open(str(self.path), 'w+') as f:
-                f.write(lineZ + '\n');
-            self.lines.append(str(lineZ) + '\n');
+                f.write(lineZ + '\n')
+            self.lines.append(str(lineZ) + '\n')
         
     def run(self):
         try:
-            cmd = raw_input("Enter Command to run in Terminal / CMD Prompt: ");
-            os.system(str(cmd));
+            cmd = raw_input("Enter Command to run in Terminal / CMD Prompt: ")
+            os.system(str(cmd))
             
         except Exception:
-            print "----Invalid Command----";
-            raw_input("Continue? (Hit Enter) ");
+            print "----Invalid Command----"
+            raw_input("Continue? (Hit Enter) ")
             
     
     def getKill(self):
-        return self.kill;
+        return self.kill
                     
     def stripCopy(self, position):
         tempCopy = self.lines[position]
@@ -641,22 +641,22 @@ class Document(object):
             return 0
          
 def main():
-    termdoc = Document();
-    termdoc.startUp();
+    termdoc = Document()
+    termdoc.startUp()
     kill = termdoc.getKill()
     
     
     while(kill != True):
-        termdoc.printDocument();
-        termdoc.getCmd();
-        termdoc.executeCommand();
-        kill = termdoc.getKill();
+        termdoc.printDocument()
+        termdoc.getCmd()
+        termdoc.executeCommand()
+        kill = termdoc.getKill()
     
     if termdoc.path != "":
         termdoc.deleteSwap()
     raise SystemExit
         
-main();
+main()
     
 
 
