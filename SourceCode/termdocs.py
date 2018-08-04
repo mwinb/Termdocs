@@ -491,7 +491,7 @@ class Document(object):
         while(tempCount <= end):
             print "Replace? (n) to Return without Changes"
             print str(tempCount) + ": " + self.lines[tempCount]
-            self.chooseIndent(tempcount)
+            self.chooseIndent(tempCount)
             inp = str(raw_input(str(tempCount) + ": " + self.spaces))
             if inp != "n":
                 self.lines[tempCount] = self.spaces + inp + '\n'
