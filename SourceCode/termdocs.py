@@ -13,7 +13,7 @@ class Document(object):
         self.path = "";
         self.lines = [];
         self.swapPath = "";
-        self.copy = "";
+        self.copy = []
         self.cmd = "";
         self.start = 0;
         self.end = 0;
@@ -29,7 +29,7 @@ class Document(object):
         self.path = "";
         self.lines = [];
         self.swapPath = "";
-        self.copy = "";
+        self.copy = []
         self.cmd = "";
         self.start = 0;
         self.end = 0;
@@ -47,19 +47,31 @@ class Document(object):
     def getLength(self):
         return len(self.lines) - 1
     
-    def setIndent(self):
+    def chooseIndent(self, position):
+        prevTab = self.getTabs(position)
+        print "Previous Tab: " + str(prevTab)
+        indent = raw_input("Enter # of Tabs: ")
+        self.setIndent(indent)
+     
+    def setIndent(self, indent):
         try:
-            indent = raw_input("Enter # of 4 space tabs: ")
             if int(indent) >= 0:
                 self.indent = int(indent)
                 self.spaces = ""
                 for i in range(self.indent):
                     self.spaces += "    "
             else:
-                raise Exception
+            	raise Exception
         except Exception:
-            print "----Invalid Input----"
+        	print "----Invalid Input----"
  
+    def setPrevIndex(self):
+        prevTab = getTabs(self.position)
+        self.indent = int(indent)
+        self.spaces = ""
+        for i in range(self.indent):
+            self.spaces += "    "
+             
     def indentPlus(self):
         self.indent += 1
         self.spaces += "    "
@@ -133,12 +145,19 @@ class Document(object):
             self.getStartEnd();
     
     def executeCommand(self):
-        if self.cmd == "-pst":
-            self.cmd = self.copy;
-            
         cmd = self.cmd
+        if cmd == "-pst":
+            for i in range(len(self.copy)):
+                print "Line to be Pasted: " + self.copy[i]
+                self.chooseIndent(self.position)
+                if self.position < len(self.lines)-1:
+                    self.lines.insert(self.position+1, self.spaces + self.copy[i])
+                else:
+                    self.lines.append(self.spaces + self.copy[i])
+                self.position += 1
+            
         
-        if cmd == "-q":
+        elif cmd == "-q":
             self.clear();
             self.promptSave();
             self.kill = True
@@ -148,7 +167,7 @@ class Document(object):
             self.helpMenu();
  
         elif cmd == "-id":
-            self.setIndent()
+            self.chooseIndent(self.position)
  
         elif cmd == "-idp":
             self.indentMinus()
@@ -156,6 +175,9 @@ class Document(object):
         elif cmd == "-idn":
             self.indentPlus()
  
+        elif cmd == "-ida":
+            self.setIndent(self.getTabs(self.position))
+             
         elif cmd == "-on":
             self.promptSave()
             tempPath = self.getDirectory();
@@ -171,19 +193,19 @@ class Document(object):
                 return self.kill
                 
         elif cmd == "-cp":
-            self.copy = "";
-            self.copy = str(raw_input("Store Input: "));
+            self.copy = []
+            self.copy.append(str(raw_input("Store Input: ")))
         
         elif cmd == "-ccl":
-            self.copy == "";
-            self.copy = self.lines[self.position];
-        
+            self.copy = []
+            self.copy.append(self.stripCopy(self.position))
+            
         elif cmd == "-cs":
-            self.copy == "";
+            self.copy = []
             self.getStartEnd();
             tempCount = self.start;
             while(tempCount <= self.end):
-                self.copy += self.lines[tempCount];
+                self.copy.append(self.stripCopy(tempCount))
                 tempCount += 1;
             self.start = self.defaultStart;
         
@@ -244,7 +266,7 @@ class Document(object):
             self.undo = self.fillArray(self.path);
             insertPos = self.getLineNumber();
             print str(insertPos) + ": " + self.lines[insertPos]
-            self.setIndent()
+            self.chooseIndent(insertPos)
             inp = raw_input(str(insertPos) + ": " + self.spaces)
             self.lines.insert(insertPos, self.spaces + str(inp) + '\n')
             self.save(self.path, self.lines);
@@ -374,6 +396,9 @@ class Document(object):
         if(self.position > (len(self.lines)-1)):
             self.position = 0;
         
+        if (cmd == ""):
+            self.setIndent(self.getTabs(self.position))
+             
         self.save(self.path, self.lines)
         lines = self.fillArray(self.path)
          
@@ -411,6 +436,8 @@ class Document(object):
         print "-| -idp    | Removes 4 spaces from indent -";
         print "-------------------------------------------";
         print "-| -idn    | Adds 4 space to the indent   -";
+        print "-------------------------------------------";
+        print "-| -ida    | Sets Indent to Match Previous-";
         print "-------------------------------------------";
         print "-| -ps      |Prints Selection, Insert     -";
         print "-|          |Starts at End of Selection   -";
@@ -464,7 +491,7 @@ class Document(object):
         while(tempCount <= end):
             print "Replace? (n) to Return without Changes"
             print str(tempCount) + ": " + self.lines[tempCount];
-            self.setIndent()
+            self.chooseIndent(tempcount)
             inp = str(raw_input(str(tempCount) + ": " + self.spaces))
             if inp != "n":
                 self.lines[tempCount] = self.spaces + inp + '\n'
@@ -586,6 +613,33 @@ class Document(object):
     def getKill(self):
         return self.kill;
                     
+    def stripCopy(self, position):
+        tempCopy = self.lines[position]
+        tempCount = 0
+        copy = ""
+
+        for i in tempCopy:
+            if i == " ":
+                tempCount += 1
+            else:
+                break
+        for i in range(tempCount, len(tempCopy)):
+            copy += tempCopy[i]
+        return copy
+
+    def getTabs(self, position):
+        tempCount = 0
+        for i in self.lines[position]:
+            if i == " ":
+                tempCount += 1
+            else:
+                break
+        if tempCount > 0:
+            tempCount = tempCount/4
+            return tempCount
+        else:
+            return 0
+         
 def main():
     termdoc = Document();
     termdoc.startUp();
