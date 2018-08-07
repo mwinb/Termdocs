@@ -1,7 +1,6 @@
  
 -------------------------------------------
 -| Write Text and Hit Enter to Insert    |-
--| Your Text on the Line Shown on the    |-
 -| Bottom Left Corner of the Terminal    |-
 -------------------------------------------
 -| Hit Enter At Any Time While the Input |-

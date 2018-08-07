@@ -65,13 +65,6 @@ class Document(object):
         except Exception:
         	print "----Invalid Input----"
  
-    def setPrevIndex(self):
-        prevTab = getTabs(self.position)
-        self.indent = int(indent)
-        self.spaces = ""
-        for i in range(self.indent):
-            self.spaces += "    "
-             
     def indentPlus(self):
         self.indent += 1
         self.spaces += "    "
@@ -393,11 +386,12 @@ class Document(object):
         else:
             self.position += 1
             
+        if cmd == "":
+            self.setIndent(self.getTabs(self.position))
+         
         if(self.position > (len(self.lines)-1)):
             self.position = 0
         
-        if (cmd == ""):
-            self.setIndent(self.getTabs(self.position))
              
         self.save(self.path, self.lines)
         lines = self.fillArray(self.path)
@@ -632,6 +626,8 @@ class Document(object):
         for i in self.lines[position]:
             if i == " ":
                 tempCount += 1
+            elif i == "\t":
+                tempCount += 4
             else:
                 break
         if tempCount > 0:
