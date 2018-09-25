@@ -52,6 +52,16 @@ class Document(object):
         print "Previous Tab: " + str(prevTab)
         indent = raw_input("Enter # of Tabs: ")
         self.setIndent(indent)
+ 
+    def setSpaces(self):
+        indent = self.indent;
+        spaces = ""
+         
+        for i in range(indent):
+            spaces += "    "
+         
+        self.spaces = spaces
+        return spaces
      
     def setIndent(self, indent):
         try:
@@ -249,6 +259,11 @@ class Document(object):
             self.lines = self.fillArray(self.path)
             self.save(self.path, self.lines)
         
+        elif cmd == "-rld":
+            self.clear()
+            self.lines = self.fillArray(self.path)
+            self.save(self.path, self.lines)
+         
         elif cmd == "-end":
             self.position = len(self.lines)-1
             
@@ -310,6 +325,7 @@ class Document(object):
                 self.position = len(self.lines)-1
             else:
                 self.position = self.position-1
+            self.setIndent(self.getTabs(self.position))
         
         elif cmd == "-g":
             self.position = int(self.getLineNumber())
@@ -411,6 +427,8 @@ class Document(object):
         print "-| -q       |Quit Program / oneLine Mode  -"
         print "-------------------------------------------"
         print "-| -run     |Takes a Terminal/CMD Command -"
+        print "-------------------------------------------"
+        print "-| -rld     |Reloads from document        -"
         print "-------------------------------------------"
         print "-| -o       |Opens in Default Program     -"
         print "-------------------------------------------"
@@ -581,6 +599,7 @@ class Document(object):
             lines = []
             with open(str(path), 'r+') as f:
                 for line in f.readlines():
+                    line = self.replaceTabs(line)
                     lines.append(line)
             return lines
         except Exception:
@@ -615,6 +634,8 @@ class Document(object):
         for i in tempCopy:
             if i == " ":
                 tempCount += 1
+            elif i == "\t":
+                tempCount += 1
             else:
                 break
         for i in range(tempCount, len(tempCopy)):
@@ -635,6 +656,17 @@ class Document(object):
             return tempCount
         else:
             return 0
+    def replaceTabs(self, line):
+        chars = [];
+        for i in line:
+            if i == "\t":
+                chars.append("    ")
+            else:
+                chars.append(i)
+        line = ""
+        for i in range(len(chars)):
+            line += chars[i]
+        return str(line)
          
 def main():
     termdoc = Document()
@@ -652,6 +684,7 @@ def main():
         termdoc.deleteSwap()
     raise SystemExit
         
+            
 main()
     
 
