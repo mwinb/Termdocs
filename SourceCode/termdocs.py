@@ -71,9 +71,9 @@ class Document(object):
                 for i in range(self.indent):
                     self.spaces += "    "
             else:
-            	raise Exception
+                raise Exception
         except Exception:
-        	print "----Invalid Input----"
+            print "----Invalid Input----"
  
     def indentPlus(self):
         self.indent += 1
@@ -383,12 +383,14 @@ class Document(object):
             
         elif self.position == (len(self.lines)-1) and cmd != "":
             self.undo = self.fillArray(self.path)
+            cmd = self.replaceTabs(cmd)
             self.lines.append(self.spaces + str(cmd) + '\n')
             self.save(self.path, self.lines)
             self.position += 1
             
         elif self.position < (len(self.lines)-1) and cmd != "":
             self.undo = self.fillArray(self.path)
+            cmd = self.replaceTabs(cmd)
             self.lines.insert(self.position+1, self.spaces + str(cmd) + '\n')
             self.save(self.path, self.lines)
             self.position += 1
@@ -607,8 +609,10 @@ class Document(object):
             
     def cNewCmd(self):
         if not self.lines:
+            self.clear()
             print(str(self.path))
             lineZ = str(raw_input("0: "))
+            lineZ = self.replaceTabs(lineZ)
             with open(str(self.path), 'w+') as f:
                 f.write(lineZ + '\n')
             self.lines.append(str(lineZ) + '\n')
