@@ -387,6 +387,7 @@ class Document(object):
             self.lines.append(self.spaces + str(cmd) + '\n')
             self.save(self.path, self.lines)
             self.position += 1
+            self.setIndent(self.getTabs(self.position))
             
         elif self.position < (len(self.lines)-1) and cmd != "":
             self.undo = self.fillArray(self.path)
@@ -394,6 +395,7 @@ class Document(object):
             self.lines.insert(self.position+1, self.spaces + str(cmd) + '\n')
             self.save(self.path, self.lines)
             self.position += 1
+            self.setIndent(self.getTabs(self.position))
         
         elif cmd == "" and self.position < (len(self.lines)-1):
             self.position += 1
