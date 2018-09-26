@@ -525,6 +525,8 @@ class Document(object):
                 inp = str(raw_input(str(tempCount) + ": "))
                 if inp != "n":
                     del self.lines[start]
+                else:
+                    start += 1
                 tempCount +=1
         else:
             while(tempCount <= end):
