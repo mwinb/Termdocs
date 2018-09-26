@@ -517,13 +517,19 @@ class Document(object):
     
     def deleteSelection(self, start, end):
         tempCount = start
-        while(tempCount <= end):
-            print "Delete? (n) to Return without Changes"
-            print str(start) + ": " + self.lines[start]
-            inp = str(raw_input(str(tempCount) + ": "))
-            if inp != "n":
+        review = raw_input("Review before deleting? y/n: ")
+        if review == "y" or review == "Y":
+            while(tempCount <= end):
+                print "Delete? (n) to Return without Changes"
+                print str(start) + ": " + self.lines[start]
+                inp = str(raw_input(str(tempCount) + ": "))
+                if inp != "n":
+                    del self.lines[start]
+                tempCount +=1
+        else:
+            while(tempCount <= end):
                 del self.lines[start]
-            tempCount +=1
+                tempCount += 1
     
     def getLineNumber(self):
         try:
