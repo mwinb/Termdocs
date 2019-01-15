@@ -383,6 +383,7 @@ class Document(object):
             
         elif self.position == (len(self.lines)-1) and cmd != "":
             self.undo = self.fillArray(self.path)
+            cmd = self.replaceTabs(cmd)
             self.lines.append(self.spaces + str(cmd) + '\n')
             self.save(self.path, self.lines)
             self.position += 1
@@ -390,6 +391,7 @@ class Document(object):
             
         elif self.position < (len(self.lines)-1) and cmd != "":
             self.undo = self.fillArray(self.path)
+            cmd = self.replaceTabs(cmd)
             self.lines.insert(self.position+1, self.spaces + str(cmd) + '\n')
             self.save(self.path, self.lines)
             self.position += 1
@@ -609,6 +611,7 @@ class Document(object):
             lines = []
             with open(str(path), 'r+') as f:
                 for line in f.readlines():
+                    line = self.replaceTabs(line)
                     lines.append(line)
             return lines
         except Exception:
@@ -619,6 +622,7 @@ class Document(object):
             self.clear()
             print(str(self.path))
             lineZ = str(raw_input("0: "))
+            lineZ = self.replaceTabs(lineZ)
             with open(str(self.path), 'w+') as f:
                 f.write(lineZ + '\n')
             self.lines.append(str(lineZ) + '\n')
