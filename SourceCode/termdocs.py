@@ -222,6 +222,21 @@ class Document(object):
             self.save(self.path, self.redo)
             self.lines = self.fillArray(self.path)
         
+        elif cmd == "-stab":
+            for i in range(len(self.lines)):
+                self.lines[i] = self.replaceTabs(self.lines[i])
+             
+        elif cmd == "-sctab":
+            self.lines[self.position] = self.replaceTabs(self.lines[self.position])
+             
+        elif cmd == "-sstab":
+            self.getStartEnd()
+            tempCount = self.start
+            while(tempCount <= self.end):
+                self.lines[tempCount] = self.replaceTabs(self.lines[tempCount])
+                tempCount += 1
+            self.start = self.defaultStart
+                 
         elif cmd == "-vl":
             self.clear()
             defaultPosition = self.position
@@ -470,6 +485,15 @@ class Document(object):
         print "-| -rcl     |Replaces Current Line        -"
         print "-------------------------------------------"
         print "-| -rep     |Replaces Specified Line      -"
+        print "-------------------------------------------"
+        print "-| -stab      |Replaces all leading tabs  -"
+        print "-|            |with four spaces           -"
+        print "-------------------------------------------"
+        print "-| -sctab     |Replace current lines tabs -"
+        print "-|            |with 4 spaces              -"
+        print "-------------------------------------------"
+        print "-| -sstab     |Replaces selections tabs   -"
+        print "-|            |with 4 spaces              -"
         print "-------------------------------------------"
         print "-| -exp     |Exports Current File to New  -"
         print "-------------------------------------------"
