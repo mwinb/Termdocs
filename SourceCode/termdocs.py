@@ -63,6 +63,7 @@ class Document(object):
         self.spaces = spaces
         return spaces
      
+         
     def setIndent(self, indent):
         try:
             if int(indent) >= 0:
@@ -75,6 +76,9 @@ class Document(object):
         except Exception:
             print "----Invalid Input----"
  
+    def reindentLine(self, lineNum):
+        self.chooseIndent(lineNum)
+        self.lines[lineNum] = self.spaces + self.lines[lineNum].strip() + "\n"
     def indentPlus(self):
         self.indent += 1
         self.spaces += "    "
@@ -148,7 +152,6 @@ class Document(object):
             self.getStartEnd()
     
     def executeCommand(self):
-        cmd = self.cmd
         if cmd == "-pst":
             for i in range(len(self.copy)):
                 print "Line to be Pasted: " + self.copy[i]
@@ -159,7 +162,6 @@ class Document(object):
                     self.lines.append(self.spaces + self.copy[i])
                 self.position += 1
             
-        
         elif cmd == "-q":
             self.clear()
             self.promptSave()
@@ -175,7 +177,7 @@ class Document(object):
         elif cmd == "-idp":
             self.indentMinus()
  
-        elif cmd == "-idn":
+        elif cmd == "-t":
             self.indentPlus()
  
         elif cmd == "-ida":
@@ -237,6 +239,17 @@ class Document(object):
                 tempCount += 1
             self.start = self.defaultStart
                  
+        elif cmd == "-rtl":
+            self.reindentLine(self.position)
+         
+        elif cmd == "-rts":
+            self.getStartEnd()
+            tempCount = self.start
+            while(tempCount <= self.end):
+                self.reindentLine(tempCount)
+                tempCount += 1
+            self.start = self.defaultStart
+             
         elif cmd == "-vl":
             self.clear()
             defaultPosition = self.position
@@ -424,7 +437,6 @@ class Document(object):
          
         if(self.position > (len(self.lines)-1)):
             self.position = 0
-        
              
         self.save(self.path, self.lines)
         lines = self.fillArray(self.path)
@@ -464,7 +476,7 @@ class Document(object):
         print "-------------------------------------------"
         print "-| -idp     |Removes 4 spaces from indent -"
         print "-------------------------------------------"
-        print "-| -idn     |Adds 4 space to the indent   -"
+        print "-| -t       |Adds 4 space to the indent   -"
         print "-------------------------------------------"
         print "-| -ida     |Sets Indent to Match Previous-"
         print "-------------------------------------------"
@@ -486,14 +498,14 @@ class Document(object):
         print "-------------------------------------------"
         print "-| -rep     |Replaces Specified Line      -"
         print "-------------------------------------------"
-        print "-| -stab      |Replaces all leading tabs  -"
-        print "-|            |with four spaces           -"
+        print "-| -stab    |Replaces all leading tabs    -"
+        print "-|          |with four spaces             -"
         print "-------------------------------------------"
-        print "-| -sct       |Replace current lines tabs -"
-        print "-|            |with 4 spaces              -"
+        print "-| -sct     |Replace current lines tabs   -"
+        print "-|          |with 4 spaces                -"
         print "-------------------------------------------"
-        print "-| -sst       |Replaces selections tabs   -"
-        print "-|            |with 4 spaces              -"
+        print "-| -sst     |Replaces selections tabs     -"
+        print "-|          |with 4 spaces                -"
         print "-------------------------------------------"
         print "-| -exp     |Exports Current File to New  -"
         print "-------------------------------------------"
@@ -707,7 +719,6 @@ def main():
     termdoc.startUp()
     kill = termdoc.getKill()
     
-    
     while(kill != True):
         termdoc.printDocument()
         termdoc.getCmd()
@@ -717,7 +728,6 @@ def main():
     if termdoc.path != "":
         termdoc.deleteSwap()
     raise SystemExit
-        
             
 main()
     
