@@ -130,7 +130,6 @@ class Document(object):
         for i in range(int(self.start), int(self.position+1)):
             print str(i) + ": " + self.lines[i]
         
-        
     def getCmd(self):
         position = self.position
         self.cmd = str(raw_input(str(position+1) + ": " + self.spaces))
@@ -152,10 +151,19 @@ class Document(object):
             self.getStartEnd()
     
     def executeCommand(self):
+        cmd = self.cmd
         if cmd == "-pst":
+            changeIndent = raw_input("Change Indent of Items to Paste? y/n")
+             
+            if (changeIndent == 'y' or changeIndent == 'Y'):
+                changeFlag = True
+            else:
+                changeFlag = False
+                 
             for i in range(len(self.copy)):
                 print "Line to be Pasted: " + self.copy[i]
-                self.chooseIndent(self.position)
+                if(changeFlag):
+                    self.chooseIndent(self.position)
                 if self.position < len(self.lines)-1:
                     self.lines.insert(self.position+1, self.spaces + self.copy[i])
                 else:
