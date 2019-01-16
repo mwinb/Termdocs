@@ -226,10 +226,10 @@ class Document(object):
             for i in range(len(self.lines)):
                 self.lines[i] = self.replaceTabs(self.lines[i])
              
-        elif cmd == "-sctab":
+        elif cmd == "-sct":
             self.lines[self.position] = self.replaceTabs(self.lines[self.position])
              
-        elif cmd == "-sstab":
+        elif cmd == "-sst":
             self.getStartEnd()
             tempCount = self.start
             while(tempCount <= self.end):
@@ -489,10 +489,10 @@ class Document(object):
         print "-| -stab      |Replaces all leading tabs  -"
         print "-|            |with four spaces           -"
         print "-------------------------------------------"
-        print "-| -sctab     |Replace current lines tabs -"
+        print "-| -sct       |Replace current lines tabs -"
         print "-|            |with 4 spaces              -"
         print "-------------------------------------------"
-        print "-| -sstab     |Replaces selections tabs   -"
+        print "-| -sst       |Replaces selections tabs   -"
         print "-|            |with 4 spaces              -"
         print "-------------------------------------------"
         print "-| -exp     |Exports Current File to New  -"
