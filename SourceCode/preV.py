@@ -6,7 +6,6 @@ import os
 import sys
 import platform
 import subprocess
-import math
 
 class Document(object):
     
@@ -25,10 +24,6 @@ class Document(object):
         self.redo = []
         self.indent = 0
         self.spaces = ""
-        self.indentSize = "    "
-        self.tabRep = False
-        self.tabWidth = 4
-        
         
     def reset(self):
         self.path = ""
@@ -45,10 +40,6 @@ class Document(object):
         self.redo = []
         self.indent = 0
         self.spaces = ""
-        self.indentSize = "    "
-        self.tabRep = False
-        self.tabWidth = 4
-        
     
     def getPath(self):
         return str(self.path)
@@ -56,38 +47,21 @@ class Document(object):
     def getLength(self):
         return len(self.lines) - 1
     
-    def toggleReplaceTabs(self):
-        if self.tabRep == True:
-            self.tabRep = False
-        else:
-            self.tabRep = True
-             
     def chooseIndent(self, position):
-        prevTab = self.getTabs(self.lines[position])
+        prevTab = self.getTabs(position)
         print "Previous Tab: " + str(prevTab)
         indent = raw_input("Enter # of Tabs: ")
         self.setIndent(indent)
  
-    def getTabWidth(self):
-        tabWidth = raw_input("Enter # of spaces or 0 for \\t:")
-        self.setTabWidth(tabWidth)
+    def setSpaces(self):
+        indent = self.indent;
+        spaces = ""
          
-    def setTabWidth(self, tabWidth):
-        try:
-            tabWidth = int(tabWidth)
-            self.indentSize = ""
-            if(tabWidth == 0):
-                self.indentSize = "\t"
-                self.tabWidth = 5
-            else:
-                for i in range(tabWidth):
-                    self.indentSize += " "
-                self.tabWidth = tabWidth
-                self.setIndent(self.indent)
-        except Exception:
-            raw_input("Invalid Input\n No Changes Made. \n Press Any Key to Continue")
-            self.setTabWidth(self.tabWidth)
+        for i in range(indent):
+            spaces += "    "
          
+        self.spaces = spaces
+        return spaces
      
          
     def setIndent(self, indent):
@@ -96,7 +70,7 @@ class Document(object):
                 self.indent = int(indent)
                 self.spaces = ""
                 for i in range(self.indent):
-                    self.spaces += self.indentSize
+                    self.spaces += "    "
             else:
                 raise Exception
         except Exception:
@@ -105,17 +79,16 @@ class Document(object):
     def reindentLine(self, lineNum):
         self.chooseIndent(lineNum)
         self.lines[lineNum] = self.spaces + self.lines[lineNum].strip() + "\n"
-         
     def indentPlus(self):
         self.indent += 1
-        self.spaces += self.indentSize
+        self.spaces += "    "
  
     def indentMinus(self):
         if self.indent > 0:
             self.indent -= 1
             self.spaces = ""
             for i in range(self.indent):
-                self.spaces += self.indentSize
+                self.spaces += "    "
         else:
             print "----Indent Already Set to 0----"
  
@@ -190,15 +163,7 @@ class Document(object):
             for i in range(len(self.copy)):
                 print "Line to be Pasted: " + self.copy[i]
                 if(changeFlag):
-                    tabs = self.getTabs(self.copy[i])
-                    print "Copied Lines Original Tab Length: " + str(tabs)
                     self.chooseIndent(self.position)
-                    self.copy[i] = self.stripCopy(self.copy[i])
-                else:
-                    tabs = self.getTabs(self.copy[i])
-                    self.setIndent(tabs)
-                    self.copy[i] = self.stripCopy(self.copy[i])
-                     
                 if self.position < len(self.lines)-1:
                     self.lines.insert(self.position+1, self.spaces + self.copy[i])
                 else:
@@ -224,7 +189,7 @@ class Document(object):
             self.indentPlus()
  
         elif cmd == "-ida":
-            self.setIndent(self.getTabs(self.lines[self.position]))
+            self.setIndent(self.getTabs(self.position))
              
         elif cmd == "-on":
             self.promptSave()
@@ -246,14 +211,14 @@ class Document(object):
         
         elif cmd == "-ccl":
             self.copy = []
-            self.copy.append(self.lines[self.position])
+            self.copy.append(self.stripCopy(self.position))
             
         elif cmd == "-cs":
             self.copy = []
             self.getStartEnd()
             tempCount = self.start
             while(tempCount <= self.end):
-                self.copy.append(self.lines[tempCount])
+                self.copy.append(self.stripCopy(tempCount))
                 tempCount += 1
             self.start = self.defaultStart
         
@@ -274,9 +239,6 @@ class Document(object):
         elif cmd == "-sct":
             self.lines[self.position] = self.replaceTabs(self.lines[self.position])
              
-        elif cmd == "-stw":
-            self.getTabWidth()
-             
         elif cmd == "-sst":
             self.getStartEnd()
             tempCount = self.start
@@ -285,9 +247,6 @@ class Document(object):
                 tempCount += 1
             self.start = self.defaultStart
                  
-        elif cmd == "-trt":
-            self.toggleReplaceTabs()
-             
         elif cmd == "-rtl":
             self.reindentLine(self.position)
          
@@ -295,8 +254,6 @@ class Document(object):
             self.getStartEnd()
             tempCount = self.start
             while(tempCount <= self.end):
-                print "Line to reindent"
-                print str(tempCount) + ": " + self.lines[tempCount]
                 self.reindentLine(tempCount)
                 tempCount += 1
             self.start = self.defaultStart
@@ -404,7 +361,7 @@ class Document(object):
                 self.position = len(self.lines)-1
             else:
                 self.position = self.position-1
-            self.setIndent(self.getTabs(self.lines[self.position]))
+            self.setIndent(self.getTabs(self.position))
         
         elif cmd == "-g":
             self.position = int(self.getLineNumber())
@@ -462,21 +419,17 @@ class Document(object):
             
         elif self.position == (len(self.lines)-1) and cmd != "":
             self.undo = self.fillArray(self.path)
-            if self.tabRep:
-                cmd = self.replaceTabs(cmd)
             self.lines.append(self.spaces + str(cmd) + '\n')
             self.save(self.path, self.lines)
             self.position += 1
-            self.setIndent(self.getTabs(self.lines[self.position]))
+            self.setIndent(self.getTabs(self.position))
             
         elif self.position < (len(self.lines)-1) and cmd != "":
             self.undo = self.fillArray(self.path)
-            if self.tabRep:
-                cmd = self.replaceTabs(cmd)
             self.lines.insert(self.position+1, self.spaces + str(cmd) + '\n')
             self.save(self.path, self.lines)
             self.position += 1
-            self.setIndent(self.getTabs(self.lines[self.position]))
+            self.setIndent(self.getTabs(self.position))
         
         elif cmd == "" and self.position < (len(self.lines)-1):
             self.position += 1
@@ -488,7 +441,7 @@ class Document(object):
             self.position += 1
             
         if cmd == "":
-            self.setIndent(self.getTabs(self.lines[self.position]))
+            self.setIndent(self.getTabs(self.position))
          
         if(self.position > (len(self.lines)-1)):
             self.position = 0
@@ -553,19 +506,18 @@ class Document(object):
         print "-------------------------------------------"
         print "-| -rep     |Replaces Specified Line      -"
         print "-------------------------------------------"
-        print "-| -rtl     |Change current Lines indent  -"
+        print "-| -stab    |Replaces all leading tabs    -"
+        print "-|          |with four spaces             -"
         print "-------------------------------------------"
-        print "-| -rts     |Change current Lines indent  -"
-        print "-------------------------------------------"
-        print "-| -trt     |Toggles \\t replacement       -"
-        print "-|          |changes tab key input to     -"
-        print "-|          |current indentation          -"
-        print "-------------------------------------------"
-        print "-| -sct     |Replace cur line leading \\t-"
+        print "-| -sct     |Replace current lines tabs   -"
+        print "-|          |with 4 spaces                -"
         print "-------------------------------------------"
         print "-| -sst     |Replaces selections tabs     -"
+        print "-|          |with 4 spaces                -"
         print "-------------------------------------------"
-        print "-| -stw     |Changes indentation spaces   -"
+        print "-| -rtl     | Reindent Current Line       -"
+        print "-------------------------------------------"
+        print "-| -rts     | Reindent Selection of Lines -"
         print "-------------------------------------------"
         print "-| -exp     |Exports Current File to New  -"
         print "-------------------------------------------"
@@ -732,8 +684,8 @@ class Document(object):
     def getKill(self):
         return self.kill
                     
-    def stripCopy(self, lineS):
-        tempCopy = lineS
+    def stripCopy(self, position):
+        tempCopy = self.lines[position]
         tempCount = 0
         copy = ""
 
@@ -748,26 +700,25 @@ class Document(object):
             copy += tempCopy[i]
         return copy
 
-    def getTabs(self, lineS):
+    def getTabs(self, position):
         tempCount = 0
-        for i in lineS:
+        for i in self.lines[position]:
             if i == " ":
                 tempCount += 1
             elif i == "\t":
-                tempCount += self.tabWidth
+                tempCount += 4
             else:
                 break
         if tempCount > 0:
-            tempCount = math.floor(tempCount/self.tabWidth)
+            tempCount = tempCount/4
             return tempCount
         else:
             return 0
-             
     def replaceTabs(self, line):
         chars = [];
         for i in line:
             if i == "\t":
-                chars.append(self.indentSize)
+                chars.append("    ")
             else:
                 chars.append(i)
         line = ""
