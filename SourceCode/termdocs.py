@@ -277,6 +277,8 @@ class Document(object):
         elif cmd == "-stw":
             self.getTabWidth()
              
+        elif cmd == "-el":
+            self.lines[self.position] = self.editLine(self.position)
         elif cmd == "-sst":
             self.getStartEnd()
             tempCount = self.start
@@ -774,6 +776,13 @@ class Document(object):
         for i in range(len(chars)):
             line += chars[i]
         return str(line)
+     
+    def editLine(self, position):
+        readline.set_startup_hook(lambda : readline.insert_text(str(position) + ":" + self.lines[position]))
+        try:
+            return raw_input(prompt)
+        finally:
+            readline.set_startup_hook()
          
 def main():
     termdoc = Document()
