@@ -3,6 +3,7 @@
 #Termdocs Text Editor
 
 import os
+import readline
 import sys
 import platform
 import subprocess
@@ -278,7 +279,7 @@ class Document(object):
             self.getTabWidth()
              
         elif cmd == "-el":
-            self.lines[self.position] = self.editLine(self.position)
+            self.lines[self.position] = self.editLine(self.position) + "\n"
         elif cmd == "-sst":
             self.getStartEnd()
             tempCount = self.start
@@ -778,7 +779,9 @@ class Document(object):
         return str(line)
      
     def editLine(self, position):
-        readline.set_startup_hook(lambda : readline.insert_text(str(position) + ":" + self.lines[position]))
+        prefill = self.lines[position][:-1]
+        prompt = ""
+        readline.set_startup_hook(lambda: readline.insert_text(prefill))
         try:
             return raw_input(prompt)
         finally:
