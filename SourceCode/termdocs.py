@@ -9,6 +9,7 @@ import subprocess
 import math
 
 currentOS = platform.system()
+ 
 if currentOS  == "Windows":
     import pyreadline
 elif currentOS == "Linux":
@@ -797,6 +798,7 @@ class Document(object):
     def macEditLine(self, position):
         prefill = self.lines[position][:-1]
         prompt = ""
+        sys.stdout.write(str(position) + ": ")
         gnureadline.set_startup_hook(lambda: gnureadline.insert_text(prefill))
         try:
             return raw_input(prompt)
@@ -805,6 +807,7 @@ class Document(object):
              
     def linuxEditLine(self, position):
         prefill = self.lines[position][:-1]
+        sys.stdout.write(str(position) + ": ")
         prompt = ""
         readline.set_startup_hook(lambda: readline.insert_text(prefill))
         try:
