@@ -3,12 +3,19 @@
 #Termdocs Text Editor
 
 import os
-import readline
 import sys
 import platform
 import subprocess
 import math
 
+currentOS = platform.system()
+if currentOS  == "Windows":
+    import pyreadline
+elif currentOS == "Linux":
+    import readline
+else:
+    import gnureadline
+     
 class Document(object):
     
     def __init__(self):
@@ -280,6 +287,7 @@ class Document(object):
              
         elif cmd == "-el":
             self.lines[self.position] = self.editLine(self.position) + "\n"
+             
         elif cmd == "-sst":
             self.getStartEnd()
             tempCount = self.start
@@ -552,6 +560,8 @@ class Document(object):
         print "-------------------------------------------"
         print "-| -del     |Deletes Specified Line       -"
         print "-------------------------------------------"
+        print "-| -el      |Edits Current Line           -"
+        print "-------------------------------------------"
         print "-| -rcl     |Replaces Current Line        -"
         print "-------------------------------------------"
         print "-| -rep     |Replaces Specified Line      -"
@@ -779,6 +789,21 @@ class Document(object):
         return str(line)
      
     def editLine(self, position):
+        if currentOS == "Linux":
+            return self.linuxEditLine(position)
+        else:
+            return self.macEditLine(position)
+             
+    def macEditLine(self, position):
+        prefill = self.lines[position][:-1]
+        prompt = ""
+        gnureadline.set_startup_hook(lambda: gnureadline.insert_text(prefill))
+        try:
+            return raw_input(prompt)
+        finally:
+            gnureadline.set_startup_hook()
+             
+    def linuxEditLine(self, position):
         prefill = self.lines[position][:-1]
         prompt = ""
         readline.set_startup_hook(lambda: readline.insert_text(prefill))
@@ -786,7 +811,7 @@ class Document(object):
             return raw_input(prompt)
         finally:
             readline.set_startup_hook()
-         
+             
 def main():
     termdoc = Document()
     termdoc.startUp()
