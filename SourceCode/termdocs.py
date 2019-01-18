@@ -411,7 +411,7 @@ class Document(object):
             self.save(self.path, self.lines)
             self.position = self.position-1
             
-        elif cmd == "-b":
+        elif cmd == "-":
             if(self.position == 0):
                 self.position = len(self.lines)-1
             else:
@@ -528,7 +528,7 @@ class Document(object):
         print "-------------------------------------------"
         print "-| -o       |Opens in Default Program     -"
         print "-------------------------------------------"
-        print "-| -b       |Moves to Previous Line       -"
+        print "-| -        |Moves to Previous Line       -"
         print "-------------------------------------------"
         print "-| -g       |Goes to Specified Line       -"
         print "-------------------------------------------"
