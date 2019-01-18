@@ -286,9 +286,15 @@ class Document(object):
         elif cmd == "-stw":
             self.getTabWidth()
              
-        elif cmd == "-el":
+        elif cmd == "-ecl":
             self.lines[self.position] = self.editLine(self.position) + "\n"
              
+        elif cmd == "-el":
+            self.undo = self.fillArray(self.path)
+            selection = self.getLineNumber()
+            self.lines[selection] = self.editLine(selection) + "\n"
+            self.save(self.path, self.lines)
+         
         elif cmd == "-sst":
             self.getStartEnd()
             tempCount = self.start
@@ -561,7 +567,9 @@ class Document(object):
         print "-------------------------------------------"
         print "-| -del     |Deletes Specified Line       -"
         print "-------------------------------------------"
-        print "-| -el      |Edits Current Line           -"
+        print "-| -ecl     |Edits Current Line           -"
+        print "-------------------------------------------"
+        print "-| -el      |Edits Chosen Line            -"
         print "-------------------------------------------"
         print "-| -rcl     |Replaces Current Line        -"
         print "-------------------------------------------"
