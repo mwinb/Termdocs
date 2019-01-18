@@ -1,4 +1,3 @@
- 
 -------------------------------------------
 -| Write Text and Hit Enter to Insert    |-
 -| Your Text on the Line Shown on the    |-
@@ -10,6 +9,8 @@
 -| -q       |Quit Program / oneLine Mode  -
 -------------------------------------------
 -| -run     |Takes a Terminal/CMD Command -
+-------------------------------------------
+-| -rld     |Reloads from document        -
 -------------------------------------------
 -| -o       |Opens in Default Program     -
 -------------------------------------------
@@ -28,11 +29,11 @@
 -------------------------------------------
 -| -idp     |Removes 4 spaces from indent -
 -------------------------------------------
--| -idn     |Adds 4 space to the indent   -
+-| -t       |Adds 4 space to the indent   -
 -------------------------------------------
 -| -ida     |Sets Indent to Match Previous-
 -------------------------------------------
--| -ps      |Prints Selection, Insert     -
+-| -vs      |Print Selection, Insert      -
 -|          |Starts at End of Selection   -
 -------------------------------------------
 -| -rs      |Replaces Selection One Line  -
@@ -40,15 +41,31 @@
 -------------------------------------------
 -| -ds      |Deletes Selection            -
 -------------------------------------------
--| -vs      |View Selection Without Lines -
+-| -ps      |View Selection w/o Line #'s  -
 -------------------------------------------
 -| -dcl     |Deletes Current Line         -
 -------------------------------------------
 -| -del     |Deletes Specified Line       -
 -------------------------------------------
+-| -el      |Edits Current Line           -
+-------------------------------------------
 -| -rcl     |Replaces Current Line        -
 -------------------------------------------
 -| -rep     |Replaces Specified Line      -
+-------------------------------------------
+-| -rtl     |Change current Lines indent  -
+-------------------------------------------
+-| -rts     |Change current Lines indent  -
+-------------------------------------------
+-| -trt     |Toggles \t replacement       -
+-|          |changes tab key input to     -
+-|          |current indentation          -
+-------------------------------------------
+-| -sct     |Replace cur line leading \t-
+-------------------------------------------
+-| -sst     |Replaces selections tabs     -
+-------------------------------------------
+-| -stw     |Changes indentation spaces   -
 -------------------------------------------
 -| -exp     |Exports Current File to New  -
 -------------------------------------------
