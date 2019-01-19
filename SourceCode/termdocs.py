@@ -309,7 +309,7 @@ class Document(object):
         elif cmd == "-el":
             self.undo = self.fillArray(self.path)
             selection = self.getLineNumber()
-            self.lines[selection] = self.editLine(selection) + "\n"
+            self.editLine(selection)
             self.save(self.path, self.lines)
          
         elif cmd == "-es":
@@ -846,10 +846,10 @@ class Document(object):
         sys.stdout.write(str(position) + ": ")
         gnureadline.set_startup_hook(lambda: gnureadline.insert_text(prefill))
         try:
-            return raw_input(prompt)
+            editedLines = raw_input(prompt)
+            self.lines[position] = editedLines + "\n"
         finally:
             gnureadline.set_startup_hook()
-        self.lines[position] = self.lines[position] + "\n"
              
     def linuxEditLine(self, position):
         prefill = self.lines[position][:-1]
