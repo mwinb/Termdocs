@@ -497,12 +497,7 @@ class Document(object):
                     self.save(tempPath, self.lines)
         
         elif cmd == "-run":
-            killSwitch = False
-            while(killSwitch == False):
-                self.run()
-                quit = raw_input("Continue? y/n")
-                if quit == "n":
-                    killSwitch = True
+            self.run()
         
         elif cmd == "-oe":
             tempPath = self.getDirectory()
@@ -780,8 +775,10 @@ class Document(object):
         
     def run(self):
         try:
-            cmd = raw_input("Enter Command to run in Terminal / CMD Prompt: ")
-            os.system(str(cmd))
+            cmd = raw_input("shell: ")
+            while (cmd != 'n'):
+                os.system(str(cmd))
+                cmd = raw_input("shell: ")
             
         except Exception:
             print "----Invalid Command----"
