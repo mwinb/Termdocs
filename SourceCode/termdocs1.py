@@ -43,6 +43,7 @@ class Document(object):
         self.path = ""
         self.lines = []
         self.swapPath = ""
+        self.copy = []
         self.cmd = ""
         self.start = 0
         self.end = 0
@@ -67,10 +68,8 @@ class Document(object):
     def toggleReplaceTabs(self):
         if self.tabRep == True:
             self.tabRep = False
-            raw_input("Tab Key Override: OFF")
         else:
             self.tabRep = True
-            raw_input("Tab Key Override: ON")
              
     def chooseIndent(self, position):
         prevTab = self.getTabs(self.lines[position])
@@ -102,8 +101,6 @@ class Document(object):
          
     def setIndent(self, indent):
         try:
-            if(indent == ""):
-                return
             if int(indent) >= 0:
                 self.indent = int(indent)
                 self.spaces = ""
@@ -192,7 +189,6 @@ class Document(object):
     def executeCommand(self):
         cmd = self.cmd
         if cmd == "-pst":
-            self.undo = self.fillArray(self.path)
             changeIndent = raw_input("Change Indent of Items to Paste? y/n")
              
             if (changeIndent == 'y' or changeIndent == 'Y'):
@@ -207,17 +203,15 @@ class Document(object):
                     print "Copied Lines Original Tab Length: " + str(tabs)
                     self.chooseIndent(self.position)
                     self.copy[i] = self.stripCopy(self.copy[i])
-                    self.copy[i] = self.spaces + self.copy[i]
                 else:
                     tabs = self.getTabs(self.copy[i])
                     self.setIndent(tabs)
                     self.copy[i] = self.stripCopy(self.copy[i])
-                    self.copy[i] = self.spaces + self.copy[i]
                      
                 if self.position < len(self.lines)-1:
-                    self.lines.insert(self.position+1, self.copy[i])
+                    self.lines.insert(self.position+1, self.spaces + self.copy[i])
                 else:
-                    self.lines.append(self.copy[i])
+                    self.lines.append(self.spaces + self.copy[i])
                 self.position += 1
             
         elif cmd == "-q":
@@ -263,11 +257,6 @@ class Document(object):
             self.copy = []
             self.copy.append(self.lines[self.position])
             
-        elif cmd == "-cl":
-            self.copy = []
-            selection = self.getLineNumber()
-            self.copy.append(self.lines[selection])
-             
         elif cmd == "-cs":
             self.copy = []
             self.getStartEnd()
@@ -288,42 +277,24 @@ class Document(object):
             self.lines = self.fillArray(self.path)
         
         elif cmd == "-stab":
-            self.undo = self.fillArray(self.path)
             for i in range(len(self.lines)):
                 self.lines[i] = self.replaceTabs(self.lines[i])
-            self.save(self.path, self.lines)
              
         elif cmd == "-sct":
-            self.undo = self.fillArray(self.path)
             self.lines[self.position] = self.replaceTabs(self.lines[self.position])
-            self.save(self.path, self.lines)
              
         elif cmd == "-stw":
             self.getTabWidth()
              
         elif cmd == "-ecl":
-            self.undo = self.fillArray(self.path)
-            self.editLine(self.position)
-            self.save(self.path, self.lines)
+            self.lines[self.position] = self.editLine(self.position) + "\n"
              
         elif cmd == "-el":
             self.undo = self.fillArray(self.path)
             selection = self.getLineNumber()
-            self.editLine(selection)
+            self.lines[selection] = self.editLine(selection) + "\n"
             self.save(self.path, self.lines)
          
-        elif cmd == "-es":
-            self.undo = self.fillArray(self.path)
-            self.getStartEnd()
-             
-            tempCount = self.start
-            self.start = self.defaultStart
-             
-            while(tempCount <= self.end):
-                self.editLine(tempCount)
-                tempCount += 1
-            self.save(self.path, self.lines)
-             
         elif cmd == "-sst":
             self.getStartEnd()
             tempCount = self.start
@@ -331,14 +302,12 @@ class Document(object):
                 self.lines[tempCount] = self.replaceTabs(self.lines[tempCount])
                 tempCount += 1
             self.start = self.defaultStart
-            self.save(self.path, self.lines)
                  
         elif cmd == "-trt":
             self.toggleReplaceTabs()
              
         elif cmd == "-rtl":
             self.reindentLine(self.position)
-            self.save(self.path, self.lines)
          
         elif cmd == "-rts":
             self.getStartEnd()
@@ -497,7 +466,12 @@ class Document(object):
                     self.save(tempPath, self.lines)
         
         elif cmd == "-run":
-            self.run()
+            killSwitch = False
+            while(killSwitch == False):
+                self.run()
+                quit = raw_input("Continue? y/n")
+                if quit == "n":
+                    killSwitch = True
         
         elif cmd == "-oe":
             tempPath = self.getDirectory()
@@ -558,8 +532,6 @@ class Document(object):
         print "-------------------------------------------"
         print "-| -rld     |Reloads from document        -"
         print "-------------------------------------------"
-        print "-| -stw     |Changes indentation          -"
-        print "-------------------------------------------"
         print "-| -o       |Opens in Default Program     -"
         print "-------------------------------------------"
         print "-| -        |Moves to Previous Line       -"
@@ -573,21 +545,19 @@ class Document(object):
         print "-------------------------------------------"
         print "-| -i       |Inserts at Chosen Line       -"
         print "-------------------------------------------"
-        print "-| -id      |Set current line indentation -"
+        print "-| -id      |Requests and Sets # of Tabs  -"
         print "-------------------------------------------"
-        print "-| -idp     |Removes one indent from line  -"
+        print "-| -idp     |Removes 4 spaces from indent -"
         print "-------------------------------------------"
-        print "-| -ida     |Matches indent to prev line  -"
+        print "-| -t       |Adds 4 space to the indent   -"
         print "-------------------------------------------"
-        print "-| -t       |Adds current indent to line  -"
+        print "-| -ida     |Sets Indent to Match Previous-"
         print "-------------------------------------------"
         print "-| -vs      |Print Selection, Insert      -"
         print "-|          |Starts at End of Selection   -"
         print "-------------------------------------------"
-        print "-| -es      |Edit Selection line by line  -"
-        print "-------------------------------------------"
-        print "-| -rs      |Edit selection line by line  -"
-        print "-|          |prompts indent               -"
+        print "-| -rs      |Replaces Selection One Line  -"
+        print "-|          |At a Time                    -"
         print "-------------------------------------------"
         print "-| -ds      |Deletes Selection            -"
         print "-------------------------------------------"
@@ -607,17 +577,17 @@ class Document(object):
         print "-------------------------------------------"
         print "-| -rtl     |Change current Lines indent  -"
         print "-------------------------------------------"
-        print "-| -rts     |Reindent sel line by line    -"
+        print "-| -rts     |Change current Lines indent  -"
         print "-------------------------------------------"
         print "-| -trt     |Toggles \\t replacement       -"
         print "-|          |changes tab key input to     -"
         print "-|          |current indentation          -"
         print "-------------------------------------------"
-        print "-| -sct     |Replace lines leading \\t   -"
+        print "-| -sct     |Replace cur line leading \\t-"
         print "-------------------------------------------"
-        print "-| -sst     |Replaces selections \\t      -"
+        print "-| -sst     |Replaces selections tabs     -"
         print "-------------------------------------------"
-        print "-| -stw     |Changes indentation          -"
+        print "-| -stw     |Changes indentation spaces   -"
         print "-------------------------------------------"
         print "-| -exp     |Exports Current File to New  -"
         print "-------------------------------------------"
@@ -637,8 +607,6 @@ class Document(object):
         print "-------------------------------------------"
         print "-| -cs      |Store Selection for Insert   -"
         print "-------------------------------------------"
-        print "-| -cl      |Stores chosen line for paste -"
-        print "-------------------------------------------"
         print "-| -ccl     |Copy Current Line for Insert -"
         print "-------------------------------------------"
         print "-| -pst     |Paste to Current line        -"
@@ -653,13 +621,13 @@ class Document(object):
     def replaceSelection(self, start, end):
         tempCount = start
         while(tempCount <= end):
-            tabs = self.getTabs(self.lines[tempCount])
-            print "Replace? Enter to Return without Changes"
+            print "Replace? (n) to Return without Changes"
             print str(tempCount) + ": " + self.lines[tempCount]
-            print "Copied Lines Original Tab Length: " + str(tabs)
-            self.reindentLine(tempCount)
-            self.editLine(tempCount)
-            self.save(self.path, self.lines)
+            self.chooseIndent(tempCount)
+            inp = str(raw_input(str(tempCount) + ": " + self.spaces))
+            if inp != "n":
+                self.lines[tempCount] = self.spaces + inp + '\n'
+                self.save(self.path, self.lines)
                 
             tempCount +=1
     
@@ -775,10 +743,8 @@ class Document(object):
         
     def run(self):
         try:
-            cmd = raw_input("shell: ")
-            while (cmd != 'n'):
-                os.system(str(cmd))
-                cmd = raw_input("shell: ")
+            cmd = raw_input("Enter Command to run in Terminal / CMD Prompt: ")
+            os.system(str(cmd))
             
         except Exception:
             print "----Invalid Command----"
@@ -843,8 +809,7 @@ class Document(object):
         sys.stdout.write(str(position) + ": ")
         gnureadline.set_startup_hook(lambda: gnureadline.insert_text(prefill))
         try:
-            editedLines = raw_input(prompt)
-            self.lines[position] = editedLines + "\n"
+            return raw_input(prompt)
         finally:
             gnureadline.set_startup_hook()
              
@@ -854,8 +819,7 @@ class Document(object):
         prompt = ""
         readline.set_startup_hook(lambda: readline.insert_text(prefill))
         try:
-            editedLines = raw_input(prompt)
-            self.lines[position] = editedLines + "\n"
+            return raw_input(prompt)
         finally:
             readline.set_startup_hook()
              
