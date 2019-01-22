@@ -854,8 +854,8 @@ class Document(object):
         prompt = ""
         readline.set_startup_hook(lambda: readline.insert_text(prefill))
         try:
-            return raw_input(prompt)
-            -b
+            editedLines = raw_input(prompt)
+            self.lines[position] = editedLines + "\n"
         finally:
             readline.set_startup_hook()
         self.lines[position] = self.lines[position] + "\n"
