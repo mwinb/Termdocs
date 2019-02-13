@@ -1,0 +1,79 @@
+ 
+-------------------------------------------
+-| Write Text and Hit Enter to Insert    |-
+-| Your Text on the Line Shown on the    |-
+-| Bottom Left Corner of the Terminal    |-
+-------------------------------------------
+-| Hit Enter At Any Time While the Input |-
+-| Line is Empty to View Next Line       |-
+-------------------------------------------
+-| -q       |Quit Program / oneLine Mode  -
+-------------------------------------------
+-| -run     |Takes a Terminal/CMD Command -
+-------------------------------------------
+-| -o       |Opens in Default Program     -
+-------------------------------------------
+-| -b       |Moves to Previous Line       -
+-------------------------------------------
+-| -g       |Goes to Specified Line       -
+-------------------------------------------
+-| -f       |Finds inputed text           -
+-------------------------------------------
+-| -fr      |Finds and replaces lines     -
+-|          |containing passed value      -
+-------------------------------------------
+-| -i       |Inserts at Chosen Line       -
+-------------------------------------------
+-| -id      |Requests and Sets # of Tabs  -
+-------------------------------------------
+-| -idp     |Removes 4 spaces from indent -
+-------------------------------------------
+-| -idn     |Adds 4 space to the indent   -
+-------------------------------------------
+-| -ida     |Sets Indent to Match Previous-
+-------------------------------------------
+-| -ps      |Prints Selection, Insert     -
+-|          |Starts at End of Selection   -
+-------------------------------------------
+-| -rs      |Replaces Selection One Line  -
+-|          |At a Time                    -
+-------------------------------------------
+-| -ds      |Deletes Selection            -
+-------------------------------------------
+-| -vs      |View Selection Without Lines -
+-------------------------------------------
+-| -dcl     |Deletes Current Line         -
+-------------------------------------------
+-| -del     |Deletes Specified Line       -
+-------------------------------------------
+-| -rcl     |Replaces Current Line        -
+-------------------------------------------
+-| -rep     |Replaces Specified Line      -
+-------------------------------------------
+-| -exp     |Exports Current File to New  -
+-------------------------------------------
+-| -end     |Jump to End                  -
+-------------------------------------------
+-| -begin   |Jump to Beginning            -
+-------------------------------------------
+-| -vl      |View Whole Doc With Line #'s -
+-------------------------------------------
+-| -v       |View Without Line #'s        -
+-------------------------------------------
+-| -ud      |Undo Last Change             -
+-------------------------------------------
+-| -rd      |Redo Last Change             -
+-------------------------------------------
+-| -cp      |Store Text for Insert        -
+-------------------------------------------
+-| -cs      |Store Selection for Insert   -
+-------------------------------------------
+-| -ccl     |Copy Current Line for Insert -
+-------------------------------------------
+-| -pst     |Paste to Current line        -
+-------------------------------------------
+-| -oe      |Open Separate Doc in Default -
+-|          |Program                      -
+-------------------------------------------
+-| -on      |Open New File                -
+-------------------------------------------
