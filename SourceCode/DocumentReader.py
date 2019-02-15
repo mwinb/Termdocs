@@ -1,4 +1,4 @@
-class LineReader:
+class DocumentReader:
     lines = []
 
     def __init__(self, path):
