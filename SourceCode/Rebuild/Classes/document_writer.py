@@ -2,21 +2,9 @@ class DocumentWriter:
     lines = []
     path = ""
 
-    def __init__(self, lines, path):
-        self.lines = lines
-        self.path = path
-    
-    def set_path(self, path):
-        self.path = path
-    
-    def get_path(self):
-        return self.path
-    
-    def set_lines(self, lines):
-        return self.lines
-    
-    def get_lines(self):
-        return self.lines
+    def __init__(self, document):
+        self.lines = document.lines
+        self.path = document.path
 
     def write(self):
         try:
