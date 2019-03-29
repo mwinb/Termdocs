@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #Created by Michael Winberry Feb 5 2017
 #Version Created April 13 2018
 #Termdocs Text Editor
