@@ -512,7 +512,10 @@ class Document(object):
             self.undo = self.fillArray(self.path)
             if self.tabRep:
                 cmd = self.replaceTabs(cmd)
-            self.lines.append(self.spaces + str(cmd) + '\n')
+            if cmd != "\n":
+                self.lines.append(self.spaces + str(cmd) + '\n')
+            else:
+                self.lines.append(self.spaces + str(cmd))
             self.save(self.path, self.lines)
             self.position += 1
             self.setIndent(self.getTabs(self.lines[self.position]))
@@ -521,7 +524,10 @@ class Document(object):
             self.undo = self.fillArray(self.path)
             if self.tabRep:
                 cmd = self.replaceTabs(cmd)
-            self.lines.insert(self.position+1, self.spaces + str(cmd) + '\n')
+            if cmd != "\n":
+                self.lines.insert(self.position+1, self.spaces + str(cmd) + '\n')
+            else:
+                self.lines.insert(self.position+1, self.spaces + str(cmd))
             self.save(self.path, self.lines)
             self.position += 1
             self.setIndent(self.getTabs(self.lines[self.position]))
