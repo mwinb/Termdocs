@@ -1,14 +1,13 @@
 from Classes import document
 class DocumentReader:
-    path = ""
     
-    def __init__(self, path):
-        self.path = path
+    def __init__(self):
+        pass
 
-    def read_document(self):
+    def read_document(self, path):
         try:
             lines = []
-            with open(self.path, 'r+') as f:
+            with open(path, 'r+') as f:
                 for line in f.readlines():
                     lines.append(line)
             return lines
