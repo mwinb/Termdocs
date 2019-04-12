@@ -192,6 +192,8 @@ class Document(object):
     
     def executeCommand(self):
         cmd = self.cmd
+        if cmd != "" and cmd.strip() == "":
+            cmd = "\n"
         if cmd == "-pst":
             self.undo = self.fillArray(self.path)
             changeIndent = raw_input("Change Indent of Items to Paste? y/n")
@@ -505,6 +507,7 @@ class Document(object):
             if tempPath != "Fail":
                 self.programOpen(tempPath)
             
+             
         elif self.position == (len(self.lines)-1) and cmd != "":
             self.undo = self.fillArray(self.path)
             if self.tabRep:
@@ -769,10 +772,9 @@ class Document(object):
         if not self.lines:
             self.clear()
             print(str(self.path))
-            lineZ = str(raw_input("0: "))
             with open(str(self.path), 'w+') as f:
-                f.write(lineZ + '\n')
-            self.lines.append(str(lineZ) + '\n')
+                f.write('\n')
+            self.lines.append('\n')
         
     def run(self):
         try:
