@@ -515,7 +515,7 @@ class Document(object):
             if cmd != "\n":
                 self.lines.append(self.spaces + str(cmd) + '\n')
             else:
-                self.lines.append(self.spaces + str(cmd))
+                self.lines.append(str(cmd))
             self.save(self.path, self.lines)
             self.position += 1
             self.setIndent(self.getTabs(self.lines[self.position]))
@@ -527,7 +527,7 @@ class Document(object):
             if cmd != "\n":
                 self.lines.insert(self.position+1, self.spaces + str(cmd) + '\n')
             else:
-                self.lines.insert(self.position+1, self.spaces + str(cmd))
+                self.lines.insert(self.position+1, str(cmd))
             self.save(self.path, self.lines)
             self.position += 1
             self.setIndent(self.getTabs(self.lines[self.position]))
