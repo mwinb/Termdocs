@@ -1,0 +1,500 @@
+   19  ls
+   20  emacs main.rb 
+   21  ls
+   22  mkdir excercise_8
+   23  cp main.rb excercise_
+   24  ls
+   25  cp main.rb excercise_8/
+   26  cd excercise_8/
+   27  ls
+   28  emacs main.rb 
+   29  ssh winberrm@os2.engr.oregonstate.edu
+   30  ssh winberrm@flip2.engr.oregonstate.edu
+   31  ls
+   32  ssh winberrm@flip2.engr.oregonstate.edu
+   33  ls
+   34  cd
+   35  ls
+   36  cat thingsforlab6.txt 
+   37  man 3 sscanf
+   38  man 3 strtol
+   39  ssh winberrm@flip2.engr.oregonstate.edu
+   40  ls
+   41  termdocs questions.txt
+   42  ls
+   43  ssh winberrm@os2.engr.oregonstate.edu
+   44  ssh winberrm@flip2.engr.oregonstate.edu
+   45  ljs
+   46  ls
+   47  cd ~/Dropbox/winter19/
+   48  ls
+   49  cd OperatingSystems/
+   50  ls
+   51  cd Labs/
+   52  ls
+   53  cd cs344/
+   54  ls
+   55  git pull origin master
+   56  ls
+   57  ls
+   58  cd Lab5/
+   59  ls
+   60  cd testdir/
+   61  ls
+   62  cd ..
+   63  ls
+   64  open .'
+   65  ;
+   66  open 
+   67  open .
+   68  ssh winberrm@os2.engr.oregonstate.edu
+   69  ssh winberrm@os2.engr.oregonstate.edu
+   70  ssh winberrm@os2.engr.oregonstate.edu
+   71  ssh winberrm@flip2.engr.oregonstate.edu
+   72  ls
+   73  termdocs lab7.sql
+   74  ssh winberrm@flip2.engr.oregonstate.edu
+   75  ssh winberrm@os2.engr.oregonstate.edu
+   76  ls
+   77  ls
+   78  cd ~/Dropbox/winter19/
+   79  ls
+   80  cd OperatingSystems/
+   81  ls
+   82  cd Labs/
+   83  ls
+   84  cd cs344/
+   85  ls
+   86  cd Lab5/
+   87  ls
+   88  git add *
+   89  git commit "stat lab 5"
+   90  git commit -m "stat lab 5"
+   91  git push origin master
+   92  git add *
+   93  git commit -m "change"
+   94  git push origin master
+   95  git add *
+   96  git commit -m "Fixed function"
+   97  git push origin master
+   98  git add *
+   99  git commit -m "push"
+  100  git push origin master
+  101  git pull origin master
+  102  git add *
+  103  git commit -m "next"
+  104  git push origin master
+  105  git pull origin master
+  106  git add *
+  107  git commit -m "cleanup"
+  108  git push origin master
+  109  git pull origin master
+  110  git add *
+  111  git commit -m "Again"
+  112  git push origin master
+  113  cd ../../../../Database/
+  114  ls
+  115  cd Labs/
+  116  ls
+  117  mkdir lab7
+  118  cd lab7/
+  119  ls
+  120  cp ~/Downloads/&sql .
+  121  cp ~/Downloads/*sql .
+  122  ls
+  123  open ~/Downloads/cs340-2019Winter-Lab7.pdf 
+  124  ls
+  125  sqlite3
+  126  sqlite3 ap.db
+  127  cd ../../../OperatingSystems/
+  128  ls
+  129  cd Labs/
+  130  ls
+  131  cd cs344/
+  132  ls
+  133  git pull origin master
+  134  git add *
+  135  git commit -m "Test"
+  136  git push origin master
+  137  git add *
+  138  git commit -m "Complete lab 5"
+  139  git push origin master
+  140  git add *
+  141  git commit -m "one more"
+  142  git push origin master
+  143  git add *
+  144  git commit -m "one more"
+  145  git add *
+  146  git commit -m "one more"
+  147  git push origin master
+  148  ls
+  149  git add *
+  150  git commit -m "Fix offset on extract"
+  151  git push origin master
+  152  git add *
+  153  git commit -m "CHANGE verbose beavar.c"
+  154  git push origin master
+  155  git pull origin master
+  156  git pull origin master
+  157  git add *
+  158  git commit -m "Stuff"
+  159  git push origin master
+  160  git add *
+  161  git push origin master
+  162  git commit -m "Stuff"
+  163  git push origin master
+  164  git pull origin master
+  165  open .
+  166  git add *
+  167  git commit -m "Yay"
+  168  git push origin master
+  169  git pull origin master
+  170  aves:
+  171  ls | xargs du -s | sort -nr | head [-n #]
+  172  ls
+  173  ls | xargs du -s | sort -nr | head [-n #]
+  174  ls | xargs du -s | sort -nr | head 
+  175  ls | xargs du -s | sort -nr | head [-n 5]
+  176  ls | xargs du -s | sort -nr | Public [-n 5]
+  177  ls | xargs du -s | sort -nr | head [Public 5]
+  178  ls | xargs du -s | sort -nr | head [~/ 5]
+  179  ls
+  180  ls | xargs du -s | sort -nr | head ["Public" 5]
+  181  ls | xargs du -s | sort -nr | head "Public" 5
+  182  ls | xargs du -s | sort -nr | head "Public" 
+  183  head
+  184  head -h
+  185  ls | xargs du -s | sort -nr | head -n 5 Public
+  186  ls | xargs du -s | sort -nr | head -n 5 "Public"
+  187  ls | xargs du -s | sort -nr | head -n 5 "Public/"
+  188  ls | xargs du -s | sort -nr | head -n 5 test.txt
+  189  ls
+  190  cat test.txt
+  191  ls | xargs du -s | sort -nr | head -n test.txt
+  192  ls | xargs du -s | sort -nr | head -n 5 test.txt
+  193  termdocs test.txt
+  194  ls | xargs du -s | sort -nr | head -n 5 Public
+  195  ls | xargs du -s | sort -nr | head -n 5 Desktop/
+  196  ls | xargs du -s | sort -nr | head -n 5 "Desktop/"
+  197  ls
+  198  ls | xargs du -s | sort -nr | head [-n #]
+  199  ls | xargs du -s | sort -nr | head [-n 5]
+  200  ls | xargs du -s | sort -nr | head -n 5
+  201  ls | xargs du -s | sort -nr | head 
+  202  ls
+  203  ls
+  204  ls
+  205  ssh winberrm@flip2.engr.oregonstate.edu
+  206  s
+  207  ls
+  208  cd Applications/
+  209  ls
+  210  cd ..
+  211  ls
+  212  cd Movies/
+  213  ls
+  214  cd ..
+  215  ls
+  216  cd Saved\ Dropbox/
+  217  ls
+  218  cd LaborTracker/
+  219  ls
+  220  cd ..
+  221  ls
+  222  cd ..
+  223  ls
+  224  cd Dropbox/
+  225  ls
+  226  cd perl/
+  227  ls
+  228  cd ..
+  229  ls
+  230  cd winter19/
+  231  ls
+  232  cd SoftwareEngineering/
+  233  ls
+  234  cd excercises/
+  235  ls
+  236  mkdir excercise_9
+  237  cd excercise_9/
+  238  ls
+  239  termdocs excersice9.txt
+  240  ls
+  241  ls
+  242  cd ..
+  243  ls
+  244  cd ..
+  245  ls
+  246  cd galagaInvaders/
+  247  ls
+  248  cd repo/
+  249  ls
+  250  cd /
+  251  ls
+  252  cd 
+  253  ls
+  254  cd Dropbox/
+  255  ls
+  256  cd winter19/
+  257  ls
+  258  cd SoftwareEngineering/
+  259  clear
+  260  ls
+  261  cd galagaInvaders/
+  262  ls
+  263  cd ..
+  264  ls
+  265  cd CS361-Galaga-Invaders-Clone/
+  266  ls
+  267  git pull origin branch
+  268  git pull origin master
+  269  ls
+  270  cd ..
+  271  ls
+  272  cd Projects/
+  273  ls
+  274  cd ..
+  275  ls
+  276  cd CS361-Galaga-Invaders-Clone/
+  277  ls
+  278  git status
+  279  git pull origin development
+  280  git pull origin develop
+  281  ls
+  282  git stash
+  283  cd ..
+  284  ls
+  285  sudo rm -r CS361-Galaga-Invaders-Clone/
+  286  ls
+  287  git clone https://github.com/otis620/CS361-Galaga-Invaders-Clone
+  288  git clone https://github.com/Otis620/CS361-Galaga-Invaders-Clone
+  289  git clone https://github.com/Otis0620/CS361-Galaga-Invaders-Clone.git
+  290  ls
+  291  cd CS361-Galaga-Invaders-Clone/
+  292  ls
+  293  git checkout -b develop
+  294  git pull origin
+  295  git pull origin develop
+  296  ls
+  297  git status
+  298  ls
+  299  git branch develop
+  300  git checkout develop
+  301  ls
+  302  cd ..
+  303  ls
+  304  sudo rm -r CS361-Galaga-Invaders-Clone/
+  305  git clone https://github.com/Otis0620/CS361-Galaga-Invaders-Clone.git
+  306  ls
+  307  cd CS361-Galaga-Invaders-Clone/
+  308  ls
+  309  git checkout develop
+  310  git pull origin develop
+  311  ls
+  312  clear
+  313  ls
+  314  ssh winberrm@flip2.engr.oregonstate.edu
+  315  ssh winberrm@flip2.engr.oregonstate.edu
+  316  ls
+  317  clear
+  318  ls
+  319  cd Dropbox/
+  320  ls
+  321  cd winter19/
+  322  ls
+  323  cd SoftwareEngineering/
+  324  ls
+  325  cd CS361-Galaga-Invaders-Clone/
+  326  ls
+  327  ls
+  328  ls
+  329  cd 
+  330  ls
+  331  ls *
+  332  termdocs .bash_profile 
+  333  open .bash_profile
+  334  open .bash_profile
+  335  ls
+  336  cd Dropbox/
+  337  ls
+  338  cd winter19/
+  339  ls
+  340  cd SoftwareEngineering/
+  341  ls
+  342  cd CS361-Galaga-Invaders-Clone/
+  343  ls
+  344  ls
+  345  laksdjf
+  346  clear
+  347  ls
+  348  open ~/.bash_profile
+  349  ls
+  350  git stash
+  351  git pull origin branch
+  352  ls
+  353  git checkout develop
+  354  ls
+  355  clear
+  356  git stash
+  357  git checkout -b #09_Implement_SpaceShip_Movement_Controls
+  358  git checkout -b "#09_Implement_SpaceShip_Movement_Controls"
+  359  ls
+  360  git checkout develop
+  361  ls
+  362  git merge "#09_Implement_SpaceShip_Movement_Controls"
+  363  git checkout "#09_Implement_SpaceShip_Movement_Control"
+  364  git checkout "#09_Implement_SpaceShip_Movement_Controls"
+  365  git status
+  366  git commit -am "Cleanup SpaceShip class movement methods. "
+  367  ls
+  368  git checkout develop
+  369  git merge "#09_Implement_SpaceShip_Movement_Controls"
+  370  git status
+  371  git pull
+  372  git status
+  373  git status
+  374  git merge "#09_Implement_SpaceShip_Movement_Controls"
+  375  git status
+  376  git add -A
+  377  git commit -m "FIX merge conflict"
+  378  git status
+  379  git push 
+  380  ls
+  381  ls
+  382  cd Dropbox/
+  383  ls
+  384  cd bookmarks.html 
+  385  cd Books/
+  386  ls
+  387  cd LinuxProgramming/
+  388  ls
+  389  open Michael\ Kerrisk\ -\ The\ Linux\ programming\ interface_\ a\ Linux\ and\ UNIX\ system\ programming\ handbook-No\ Starch\ Press\ \(2010\).pdf 
+  390  ls
+  391  cd Dropbox/winter19/
+  392  ls
+  393  cd OperatingSystems/
+  394  ls
+  395  cd Labs/
+  396  ls
+  397  cd cs344/
+  398  ls
+  399  cd Lab6/
+  400  ls
+  401  open bigfile.c
+  402  exit
+  403  ls
+  404  exit
+  405  ls
+  406  cd Dropbox/
+  407  ls
+  408  cd Books/
+  409  ls
+  410  cd interviewPrep/
+  411  ls
+  412  cd ..
+  413  ls
+  414  cd InterviewResources/
+  415  ls
+  416  cd ..
+  417  ls
+  418  cd Good\ Alg\ Book/
+  419  ls
+  420  cd ..
+  421  ls
+  422  cd CleanCode/
+  423  ls
+  424  cd ../../winter19/
+  425  ls
+  426  cd SoftwareEngineering/
+  427  ls
+  428  cd books/
+  429  ls
+  430  open PracticalObjectOrientedDesignInRuby.pdf 
+  431  ls
+  432  exit
+  433  ls
+  434  cd Dropbox/
+  435  ls
+  436  cd winter19/
+  437  ls
+  438  ls
+  439  cd ~/
+  440  ls
+  441  cd github/
+  442  ls
+  443  cd termdocs/
+  444  ls
+  445  git pull
+  446  ls
+  447  cd SourceCode/
+  448  ls
+  449  termdocs 1
+  450  ls
+  451  rm 1 
+  452  ls'
+  453  ls
+  454  termdocs termdocs1.py 
+  455  ls
+  456  cd ..
+  457  ls
+  458  git stash
+  459  ls
+  460  git checkout master
+  461  ls
+  462  git pull
+  463  cd SourceCode/
+  464  ls
+  465  git rm termdocs1.py
+  466  git add -A
+  467  git commit -m "REBASE"
+  468  git push
+  469  ls
+  470  exit
+  471  /usr/local/opt/python@2/bin/python2.7 -m pip install -U "pylint<2.0.0" --user
+  472  pip install --upgrade pip
+  473  /usr/local/opt/python@2/bin/python2.7 -m pip install -U autopep8 --user
+  474  git add *
+  475  git commit -m "REBUILD Created Document Class"
+  476  git push origin master
+  477  cd excercise_11/
+  478  git clone https://github.com/mwinb/galaga-invaders-example.git
+  479  ls
+  480  cd galaga-invaders-example/
+  481  git checkout poodr02
+  482  ls
+  483  git stash
+  484  ls
+  485  git stash
+  486  git stash
+  487  git stash
+  488  git checkout poodr02
+  489  git stash
+  490  git add
+  491  git add *
+  492  git push
+  493  git comit -m "CHANGE ship class to remove missile behavior."
+  494  git commit -m "CHANGE ship class to remove missile behavior."
+  495  git push
+  496  exit
+  497  git add *
+  498  git commit -m "CREATE DocumentReader Class to hand opening and reading files"
+  499  git push
+  500  exit
+  501  git add *
+  502  git commit -m "CREATE DocumentPrinter Class"
+  503  git push 
+  504  ls
+  505  mkdir Rebuild
+  506  mv Document* Rebuild/
+  507  ls
+  508  mv document.py Document.py
+  509  ls
+  510  mv Document.py Rebuild/
+  511  cd Rebuild/
+  512  ls
+  513  termdocs test.txt
+  514  ls
+  515  jokes
+  516  joke
+  517  history test.txt 
+  518  history > test.txt 
