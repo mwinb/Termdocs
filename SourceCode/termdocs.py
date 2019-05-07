@@ -242,7 +242,8 @@ class Document(object):
             self.indentPlus()
  
         elif cmd == "-ida":
-            self.setIndent(self.getTabs(self.lines[self.position]))
+            #self.setIndent(self.getTabs(self.lines[self.position]))
+            self.setLastIndent(self.position)
              
         elif cmd == "-on":
             self.promptSave()
@@ -456,7 +457,8 @@ class Document(object):
                 self.position = len(self.lines)-1
             else:
                 self.position = self.position-1
-            self.setIndent(self.getTabs(self.lines[self.position]))
+            #self.setIndent(self.getTabs(self.lines[self.position]))
+            self.setLastIndent(self.position)
         
         elif cmd == "-g":
             self.position = int(self.getLineNumber())
@@ -518,7 +520,8 @@ class Document(object):
                 self.lines.append(str(cmd))
             self.save(self.path, self.lines)
             self.position += 1
-            self.setIndent(self.getTabs(self.lines[self.position]))
+            #self.setIndent(self.getTabs(self.lines[self.position]))
+            self.setLastIndent(self.position)
             
         elif self.position < (len(self.lines)-1) and cmd != "":
             self.undo = self.fillArray(self.path)
@@ -530,7 +533,8 @@ class Document(object):
                 self.lines.insert(self.position+1, str(cmd))
             self.save(self.path, self.lines)
             self.position += 1
-            self.setIndent(self.getTabs(self.lines[self.position]))
+            #self.setIndent(self.getTabs(self.lines[self.position]))
+            self.setLastIndent(self.position)
         
         elif cmd == "" and self.position < (len(self.lines)-1):
             self.position += 1
@@ -542,7 +546,7 @@ class Document(object):
             self.position += 1
             
         if cmd == "":
-            self.setIndent(self.getTabs(self.lines[self.position]))
+            self.setLastIndent(self.position)
          
         if(self.position > (len(self.lines)-1)):
             self.position = 0
@@ -829,7 +833,7 @@ class Document(object):
             return 0
              
     def replaceTabs(self, line):
-        chars = [];
+        chars = []
         for i in line:
             if i == "\t":
                 chars.append(self.indentSize)
@@ -849,7 +853,7 @@ class Document(object):
     def macEditLine(self, position):
         prefill = self.lines[position][:-1]
         prompt = ""
-        #sys.stdout.write(str(position) + ": ")l
+        #sys.stdout.write(str(position) + ": ")
         gnureadline.set_startup_hook(lambda: gnureadline.insert_text(prefill))
         try:
             editedLines = raw_input(prompt)
@@ -867,6 +871,12 @@ class Document(object):
             self.lines[position] = editedLines + "\n"
         finally:
             readline.set_startup_hook()
+
+    def setLastIndent(self, position):
+        start = position
+        while( (self.lines[start] == "" or self.lines[start] == "\n")  and start != 0 ):
+            start = start - 1
+        self.setIndent(self.getTabs(self.lines[start]))
              
 def main():
     termdoc = Document()
