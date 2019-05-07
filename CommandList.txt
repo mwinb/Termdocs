@@ -27,9 +27,9 @@
 -------------------------------------------
 -| -id      |Requests and Sets # of Tabs  -
 -------------------------------------------
--| -idp     |Removes 4 spaces from indent -
+-| -idp     |Moves back one indent        -
 -------------------------------------------
--| -t       |Adds 4 space to the indent   -
+-| -t       |Adds 1 indent                -
 -------------------------------------------
 -| -ida     |Sets Indent to Match Previous-
 -------------------------------------------
@@ -49,6 +49,10 @@
 -------------------------------------------
 -| -el      |Edits Current Line           -
 -------------------------------------------
+-| -es      |Edits selection line by line -
+-------------------------------------------
+-| -ecl     |Edits current line           -
+-------------------------------------------
 -| -rcl     |Replaces Current Line        -
 -------------------------------------------
 -| -rep     |Replaces Specified Line      -
@@ -58,7 +62,7 @@
 -| -rts     |Change current Lines indent  -
 -------------------------------------------
 -| -trt     |Toggles \t replacement       -
--|          |changes tab key input to     -
+-|          |changes leading tabs to      -
 -|          |current indentation          -
 -------------------------------------------
 -| -sct     |Replace cur line leading \t-
