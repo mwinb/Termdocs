@@ -764,7 +764,14 @@ class Document(object):
         return path
     
     def createSwap(self):
+        count = 0
         self.swapPath = str(self.path) + "-swap"
+        if os.path.isfile(self.swapPath):
+            raw_input( "File open in another instance.\nExiting Program...")
+            raise SystemExit
+        while (os.path.isfile(self.swapPath)):
+            self.swapPath = self.swapPath + str(count)
+            count += 1;
         self.save(self.swapPath, self.lines)
     
     
