@@ -569,6 +569,7 @@ class Document(object):
         print "-| -q       |Quit Program / oneLine Mode  -"
         print "-------------------------------------------"
         print "-| -run     |Takes a Terminal/CMD Command -"
+        print "-|          |type n to exit               -"
         print "-------------------------------------------"
         print "-| -rld     |Reloads from document        -"
         print "-------------------------------------------"
@@ -767,8 +768,11 @@ class Document(object):
         count = 0
         self.swapPath = str(self.path) + "-swap"
         if os.path.isfile(self.swapPath):
-            raw_input( "File open in another instance.\nExiting Program...")
-            raise SystemExit
+            print "File may be open already or closed unexpectedly\n"
+            print "Close, remove filename-swap, or continue at own risk\n"
+            userChoice = raw_input("Continue? y/n: ")
+            if str(userChoice) != "y":
+                raise SystemExit
         while (os.path.isfile(self.swapPath)):
             self.swapPath = self.swapPath + str(count)
             count += 1;
