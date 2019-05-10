@@ -1,4 +1,3 @@
-from Classes import document
 class DocumentReader:
     
     def __init__(self):
@@ -13,5 +12,5 @@ class DocumentReader:
             return lines
         except Exception as exception:
             print("\n-- Exception: " + str(exception) + " --")
-            print("-- Press any key to continue --\n")
+            input("-- Press any key to continue --")
             return []

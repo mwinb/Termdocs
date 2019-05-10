@@ -1,0 +1,500 @@
+   25  make nox
+   26  termdocs nice.c
+   27  make nox
+   28  termdocs nice.c
+   29  make nox
+   30  termdocs nice.c
+   31  make nox
+   32  termdocs nice.c
+   33  make nox
+   34  termdocs nice.c
+   35  make nox
+   36  termdocs nice.c
+   37  make nox
+   38  ls
+   39  cd ..
+   40  ls
+   41  git add -A
+   42  git commit -m "Test"
+   43  git push
+   44  ls
+   45  ssh winberrm@flip2.engr.oregonstate.edu
+   46  ls
+   47  cd xv6-dev/
+   48  ls
+   49  termdocs renice.c
+   50  termdocs Makefile 
+   51  make nox
+   52  termdocs renice.c
+   53  make nox
+   54  termdocs renice.c
+   55  make nox
+   56  termdocs sysproc.c
+   57  make kern
+   58  termdocs sysproc.c
+   59  make nox
+   60  ls
+   61  termdocs sysproc.c
+   62  make nox
+   63  termdocs sysproc.c
+   64  make nox
+   65  ls
+   66  termdocs renice.c
+   67  ls
+   68  termdocs sysproc.c
+   69  make nox
+   70  termdocs renice.c
+   71  make nox
+   72  termdocs renice.c
+   73  make nox
+   74  termdocs Makefile 
+   75  ls
+   76  termdocs renice.c
+   77  ls
+   78  termdocs sysproc.c
+   79  make nox
+   80  termdocs sysproc.c
+   81  make nox
+   82  termdocs sysproc.c
+   83  make nox
+   84  grep p->nice_value ./*.c
+   85  grep p->nice_value ./*.h
+   86  grep nice_value ./*.h
+   87  grep nice_value ./*.c
+   88  termdocs proc.c
+   89  termdocs proc.h
+   90  ls
+   91  make kern
+   92  make nox
+   93  gdb -tui nox
+   94  ./nox
+   95  gdb -tui make nox
+   96  ls
+   97  valgrind make nox
+   98  termdocs sysproc.c
+   99  termdocs Makefile 
+  100  ls
+  101  grep renice ./*.c
+  102  termdocs syscall.c
+  103  make nox
+  104  termdocs usys.S
+  105  ls
+  106  termdocs renice.c
+  107  ls
+  108  termdocs proc.c
+  109  termdocs proc.c
+  110  make nox
+  111  termdocs proc.c
+  112  make nox
+  113  termdocs proc.c
+  114  make nox
+  115  termdocs proc.c
+  116  make nox
+  117  termdocs proc.c
+  118  termdocs sysproc.c
+  119  termdocs proc.c
+  120  make nox
+  121  make nox
+  122  termdocs proc.c
+  123  termdocs nice.c 
+  124  make nox
+  125  termdocs nice.c 
+  126  make nox
+  127  termdocs nice.c
+  128  make nox
+  129  termdocs nice.c
+  130  make nox
+  131  make nox
+  132  ls
+  133  termdocs nice.c
+  134  make nox
+  135  termdocs nice.c
+  136  make nox
+  137  termdocs nice.c
+  138  make nox
+  139  termdocs nice.c
+  140  make nox
+  141  termdocs nice.c
+  142  make nox
+  143  termdocs nice.c
+  144  make nox
+  145  termdocs nice.c
+  146  make nox
+  147  termdocs nice.c
+  148  make nox
+  149  termdocs nice.c
+  150  make nox
+  151  make nox
+  152  termdocs nice.c
+  153  make nox
+  154  termdocs nice.c
+  155  make nox
+  156  termdocs nice.c
+  157  make nox
+  158  termdocs nice.c
+  159  make nox
+  160  termdocs nice.c
+  161  make nox
+  162  termdocs nice.c
+  163  make nox
+  164  termdocs nice.c
+  165  make nox
+  166  termdocs nice.c
+  167  make nox
+  168  termdocs nice.c
+  169  termdocs nice.c
+  170  termdocs nice.c
+  171  rm nice.c-swap 
+  172  termdocs nice.c
+  173  make nox
+  174  ls
+  175  termdocs nice.c
+  176  make nox
+  177  termdocs nice.c
+  178  rm nice.c-swap 
+  179  termdocs nice.c
+  180  make nox
+  181  termdocs nice.c
+  182  make nox
+  183  termdocs nice.c
+  184  make nox
+  185  ls
+  186  make clean
+  187  cd ..
+  188  ls
+  189  git add *
+  190  git commit -m "Finish lab 5"
+  191  git push 
+  192  git pull
+  193  ls
+  194  ssh winberrm@flip2.engr.oregonstate.edu
+  195  cd Downloads/
+  196  ls
+  197  mv programming-elixir-1-6_p1_0.pdf ~/Dropbox/Books/
+  198  cd ~/Dropbox/Books/
+  199  ls
+  200  mkdir elixir
+  201  mv programming-elixir-1-6_p1_0.pdf elixir/
+  202  -q
+  203  y
+  204  -q
+  205  exit
+  206  ls
+  207  cd github/
+  208  ls
+  209  cd termdocs/
+  210  ls
+  211  cd SOu
+  212  cd SourceCode/
+  213  ls
+  214  cp termdocs.py ~/
+  215  cd
+  216  ls
+  217  chmod +x termdocs.py 
+  218  ls
+  219  ./termdocs.py 
+  220  termdocs termdocs.py 
+  221  ls
+  222  ./termdocs.py 
+  223  exit
+  224  termdocs 
+  225  ls
+  226  cd github/
+  227  ls
+  228  cd termdocs/
+  229  ls
+  230  cd SourceCode/
+  231  ls
+  232  termdocs termdocs.py 
+  233  ls
+  234  python2 termdocs.py test
+  235  termdocs ter
+  236  python2 termdocs.py test
+  237  termdocs 771
+  238  rm 771 
+  239  termdocs termdocs.py 
+  240  python2 termdocs.py test
+  241  termdocs termdocs.py 
+  242  python2 termdocs.py test
+  243  termdocs termdocs.py 
+  244  make nox
+  245  ls
+  246  python2 termdocs.py test
+  247  ls
+  248  pyinstaller --onefile termdocs.py 
+  249  ls
+  250  sudo cp dist/termdocs /usr/bin/
+  251  cp dist/termdocs ../
+  252  rm termdocs
+  253  ls
+  254  rm -r previous/
+  255  ls
+  256  rm -r build/
+  257  rm -r dist/
+  258  ls
+  259  rm termdocs.spec 
+  260  ls
+  261  cd ..
+  262  ls
+  263  tar -zxvf termdocs-Linux.tar.gz 
+  264  ls
+  265  mv termdocs termdocs-Linux
+  266  tar -czvf termdocs-Linux.tar.gz termdocs-Linux
+  267  git add *
+  268  git commit -m "CHANGE behavior if file is already open or closed without removing swap. Compiled changes for linux"
+  269  git push
+  270  git push
+  271  exit
+  272  sudo powertop --auto-tune
+  273  clear
+  274  exit
+  275  ls
+  276  ls
+  277  ., vbcxfgopl[
+  278  cd Dropbox/
+  279  ls
+  280  cd spring19/
+  281  ls
+  282  cd os2/
+  283  ls
+  284  cd cs444
+  285  ls
+  286  cd xv6-dev
+  287  ls
+  288  termdocs proc.c
+  289  ls
+  290  ls
+  291  termdocs nice.c 
+  292  ls
+  293  cd ..
+  294  ls
+  295  cd
+  296  ls
+  297  python
+  298  iex
+  299  iex
+  300  iex
+  301  clear
+  302  exit
+  303  sudo powertop --auto-tune
+  304  ssh winberrm@os2.engr.oregonstate.edu
+  305  clear
+  306  ls
+  307  cd sp
+  308  ls
+  309  cd ~/Dropbox/spring19/
+  310  ls
+  311  cd os2/
+  312  ls
+  313  cd cs344
+  314  ls
+  315  cd Lab3/
+  316  ls
+  317  cd ..
+  318  ls
+  319  cd Lab6/
+  320  ls
+  321  cd ..
+  322  ls
+  323  cd lab7/
+  324  ls
+  325  cd ..
+  326  ls
+  327  cd Lab1
+  328  ls
+  329  cd ../Lab2
+  330  ls
+  331  cd ../Lab3
+  332  ls
+  333  cd ../Lab4
+  334  ls
+  335  cd ../Lab5
+  336  ls
+  337  cd ../Lab6
+  338  ls
+  339  cd ../Lab7
+  340  ls
+  341  cd ../Lab7
+  342  ls
+  343  cd ..
+  344  ls
+  345  cd lab7
+  346  ls
+  347  who
+  348  cd ../lab8
+  349  ls
+  350  termdocs primesMT.c 
+  351  ls
+  352  ./testPrimes.bash 
+  353  ls
+  354  exit
+  355  cd github/
+  356  mix new hackerrank_sol
+  357  iex
+  358  ls
+  359  cd hackerrank_sol/
+  360  ls
+  361  iex
+  362  ls
+  363  mix test
+  364  iex
+  365  exit
+  366  ssh winberrm@os2.engr.oregonstate.edu
+  367  ls
+  368  cd Dropbox/spring19/
+  369  ls
+  370  cd ProgLang/
+  371  ls
+  372  termdocs MidtermReview.sml 
+  373  ls
+  374  termdocs 
+  375  ls
+  376  termdocs termdocs.py 
+  377  termdocs termdocs.py 
+  378  exit
+  379  cd Dropbox/spring19/
+  380  ls
+  381  cd os2/
+  382  ls
+  383  cd cs344/
+  384  ls
+  385  cd lab7
+  386  ls
+  387  cd ../lab8
+  388  ls
+  389  cd ..
+  390  ls
+  391  cd lab9
+  392  ls
+  393  cd ..
+  394  ls
+  395  cd signal/
+  396  ls
+  397  cd ..
+  398  ls
+  399  cd dotprod/
+  400  ls
+  401  ./dot_prod_Student 
+  402  cd ..
+  403  ls
+  404  exit
+  405  ls
+  406  exit
+  407  ls
+  408  cd Dropbox/spring19/os2/
+  409  ls
+  410  cd cs444
+  411  ls
+  412  cd xv6-dev
+  413  ls
+  414  termdocs proc.h
+  415  ls
+  416  termdocs date.h 
+  417  ls
+  418  termdocs proc.c
+  419  ls
+  420  termdocs proc.c
+  421  ls
+  422  grep kill ./*.c
+  423  grep kill ./*.U
+  424  grep kill ./*.S
+  425  termdocs usys.S
+  426  ls
+  427  termdocs proc.c
+  428  make nox
+  429  termdocs proc.c
+  430  make nox
+  431  termdocs Makefile 
+  432  make nox
+  433  termdocs proc.c
+  434  make nox
+  435  ls
+  436  termdocs nice.c 
+  437  ls
+  438  make nox
+  439  clear
+  440  exit
+  441  ssh winberrm@os2.engr.oregonstate.edu
+  442  cd ~/Dropbox/spring19/eng2/
+  443  ls
+  444  cd ../os2/
+  445  ls
+  446  cd cs444
+  447  ls
+  448  cd xv6-dev/
+  449  ls
+  450  git pull
+  451  ls
+  452  make clean
+  453  git pull
+  454  cd ..
+  455  ls
+  456  git stash
+  457  git pull
+  458  git pull
+  459  ls
+  460  cd xv6-dev/
+  461  ls
+  462  termdocs ls.c 
+  463  ls
+  464  termdocs mv
+  465  rm mv
+  466  termdocs mv.c 
+  467  termdocs Makefile 
+  468  make nox
+  469  termdocs Makefile 
+  470  termdocs mv.
+  471  termdocs mv.c
+  472  make nox
+  473  termdocs mv.c 
+  474  make nox
+  475  termdocs mv.c 
+  476  make nox
+  477  termdocs Makefile 
+  478  make no
+  479  make nox
+  480  make clean
+  481  make nox
+  482  termdocs mv.c 
+  483  make nox
+  484  termdocs mv.c 
+  485  make nox
+  486  termdocs proc.c
+  487  ls
+  488  clear
+  489  ls
+  490  termdocs stat.h
+  491  celar
+  492  clear
+  493  exit
+  494  ssh winberrm@os2.engr.oregonstate.edu
+  495  ls
+  496  cd term
+  497  ssh winberrm@eng2.oregonstate.edu
+  498  ssh winberrm@os2.engr.oregonstate.edu
+  499  exit
+  500  cd github/
+  501  ls
+  502  cd termdocs/
+  503  ls
+  504  cd SourceCode/
+  505  ls
+  506  cd Rebuild/
+  507  ls
+  508  cd Termdocs/
+  509  ls
+  510  cd lib/
+  511  ls
+  512  cat document
+  513  rm document
+  514  ls
+  515  termdocs type_tester.py 
+  516  ls
+  517  termdocs document_printer.py
+  518  ls
+  519  termdocs document_printer.py
+  520  ls
+  521  cat JUNK
+  522  history
+  523  history | JUNK
+  524  history > JUNK
