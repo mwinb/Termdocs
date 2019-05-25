@@ -1,7 +1,7 @@
-from document import Document
-from document_reader import DocumentReader
-from document_writer import DocumentWriter
-from document_printer import DocumentPrinter
+from DocumentAssets.document import Document
+from DocumentAssets.document_reader import DocumentReader
+from DocumentAssets.document_writer import DocumentWriter
+from DocumentAssets.document_printer import DocumentPrinter
 from input_tester import InputTester
 from user_input import UserInput
 
